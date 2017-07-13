@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Contest App</title>
+	
+    <!-- css -->
+<!--     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="../components/fortawesome/font-awesome/v4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css" />
+	<link href="css/nivo-lightbox.css" rel="stylesheet" />
+	<link href="css/nivo-lightbox-theme/default/default.css" rel="stylesheet" type="text/css" />
+	<link href="css/animations.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet">
+	<link href="css/color/default.css" rel="stylesheet"> -->
+
+
+</head>
+
+<body>
+	
+	<div class="container">
+		<h1><%= title %></h1>
+		<link rel="stylesheet" href="bootstrap/dist/css/bootstrap.css">
+
+		<ul>
+			<%	for (var i = 0; i < items.length; i++) { %>
+				<li><%= items[i].desc %></li>
+				<% } %>
+		</ul>
+
+
+		<!-- Section: section name -->
+	    
+		<!-- /Section: section name -->
+
+		<!-- Section: form -->
+		<form action="/add" method ="post" >
+			<input type = "text" name="newItem">
+			<input type = "submit">
+		</form>
+	    
+		<!-- /Section: form -->
+	</div>
+
+
+
+
+	<footer>
+
+	</footer>
+
+    <!-- Core JavaScript Files -->
+	
+	<script src="jquery/dist/jquery.js"></script>
+	<script src="bootstrap/dist/js/bootstrap.js"></script>
+    
+</body>
+
+</html>
