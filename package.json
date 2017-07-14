@@ -8,8 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "postinstall": "bower cache clean && node node_modules/bower/bin/bower install"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
