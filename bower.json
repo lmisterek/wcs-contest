@@ -1,0 +1,20 @@
+{
+  "name": "wcs-contest",
+  "description": "This is an app to score West Coast Swing Conventions.",
+  "main": "index.js",
+  "authors": [
+    "LeeAnna Misterek"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/lmisterek/wcs-contest",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}
