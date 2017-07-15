@@ -1,0 +1,49 @@
+<h2 class='page-header'>Register</h2>
+{{#if errors}}
+	{{#each errors}}
+	<div class = 'alert alert-danger'>{{msg}}</div>
+	{{/each}}
+{{/if}}
+<form method="post" action='/users/register'>
+	<div class = 'form-group'>
+		<label>Last Name </label>
+		<input type="text" class="form-control" placeholder="last name" name='last_name'>
+	</div>
+		<div class = 'form-group'>
+		<label>First Name </label>
+		<input type="text" class="form-control" placeholder="first name" name='first_name'>
+	</div>
+	<div class = 'form-group'>
+		<label>Username </label>
+		<input type="text" class="form-control" placeholder="Username" name='username'>
+	</div>
+	<div class = 'form-group'>
+		<label>Email </label>
+		<input type="email" class="form-control" placeholder="Email" name='email'>
+	</div>
+	<div class = 'form-group'>
+		<label>Cell Phone</label>
+
+		<input type="number" class="form-control" pattern="[1-9]{1}[0-9]{9}" placeholder="Enter 10 digit mobile number" name='cell_number'>
+	</div>
+	<div class = 'form-group'>
+		<label>Password </label>
+		<input type="password" class="form-control" placeholder="Password" name='password'>
+	</div>
+		<div class = 'form-group'>
+		<label>Confirm Password </label>
+		<input type="password" class="form-control" placeholder="Password" name='password2'>
+	</div>
+	<div class="form-group">
+	  <label for="level">Select level:</label>
+	  	<select class="form-control" name="level">
+	   	<option>Newcomer</option>
+	    <option>Novice</option>
+	    <option>Intermediate</option>
+	    <option>Advanced</option>
+	    <option>Champion</option>
+	    <option>Champion Invitational</option>
+	  </select>
+	</div>
+	<button type="submit" class="btn btn-default">Submit</button>
+</form>
