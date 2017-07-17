@@ -85,3 +85,11 @@ body {
 footer {
   margin-top: 40px;
 }
+
+ul  {
+    list-style: none;
+}
+
+side-nav-links li {
+    margin-bottom: 10px;
+}

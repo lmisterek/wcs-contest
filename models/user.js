@@ -14,13 +14,11 @@ connection.connect();
 
 
 
-function User(last, first, email, mobile, username, level, password){
-    this.last_name = last,
+function User(last, first, email, username, password){
+  this.last_name = last,
 	this.first_name = first,
 	this.email = email,
-	this.cell_number = mobile,
 	this.username = username,
-	this.level = level,
 	this.password = password
 }
 
@@ -36,12 +34,14 @@ module.exports.createUser = function(newUser, callback) {
         newUser.password = hash;
         
         // Put user into the database
-        var sql = "INSERT INTO users (firstname, lastname, cell_number, username, email, comp_category, pass_word)" +
-		"VALUES ('" + newUser.first_name + "', '" + newUser.last_name + "', '" + newUser.cell_number + "', '" +
-		newUser.username + "', '"  + newUser.email + "', '" + newUser.level + "', '"  + newUser.password + "')";
+        var sql = "INSERT INTO users (firstname, lastname, username, email, pass_word)" +
+		"VALUES ('" + newUser.first_name + "', '" + newUser.last_name + "', '" +
+		newUser.username + "', '"  + newUser.email + "', '"  + newUser.password + "')";
 
 		 connection.query(sql, function(err, res) {
     		if (err) throw err;
+
+        console.log(res);
   		});
     });
 });

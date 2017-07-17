@@ -26,7 +26,7 @@ router.post('/login',
 router.get('/logout', function(req, res) {
 	req.logout();
 	req.flash('success_msg', 'You are logged out');
-	res.redirect('users/login');
+	res.redirect('login');
 });
 
 passport.use(new LocalStrategy(
@@ -62,6 +62,7 @@ passport.deserializeUser(function(id, done) {
 });
 
 // Register User
+
 router.post('/register', function(req, res){
 	var last_name = req.body.last_name;
 	var first_name = req.body.first_name;
@@ -69,26 +70,15 @@ router.post('/register', function(req, res){
 	var username = req.body.username;
 	var password = req.body.password;
 	var password2 = req.body.password2;
-	var cell_number = req.body.cell_number;
-	var level = req.body.level;
-
-	console.log(req);
-
-
-
 
 	// Validation
+	// TODO:  Do not allow a username to be used more than once
 	req.checkBody('last_name', 'Last Name is required').notEmpty();
 	req.checkBody('first_name', 'First Name is required').notEmpty();
 	req.checkBody('email', 'Email is required').isEmail();
 	req.checkBody('username', 'Username is required').notEmpty();
 	req.checkBody('password', 'Password is required').notEmpty();
 	req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
-	req.checkBody('last_name', 'Last Name is required').notEmpty();
-
-	// TODO:  Validate phone number
-
-
 
 	var errors = req.validationErrors();
 	if(errors) {
@@ -98,9 +88,7 @@ router.post('/register', function(req, res){
 	}
 	else {
 
-		var newUser = new User(last_name, first_name, email, cell_number, username, level, password);
-
-		 console.log(newUser);
+		var newUser = new User(last_name, first_name, email, username, password);
 
 		 User.createUser(newUser, function(err, user) {
 		 	if(err) throw err;

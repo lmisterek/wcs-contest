@@ -21,11 +21,7 @@
 		<label>Email </label>
 		<input type="email" class="form-control" placeholder="Email" name='email'>
 	</div>
-	<div class = 'form-group'>
-		<label>Cell Phone</label>
 
-		<input type="number" class="form-control" pattern="[1-9]{1}[0-9]{9}" placeholder="Enter 10 digit mobile number" name='cell_number'>
-	</div>
 	<div class = 'form-group'>
 		<label>Password </label>
 		<input type="password" class="form-control" placeholder="Password" name='password'>
@@ -34,16 +30,37 @@
 		<label>Confirm Password </label>
 		<input type="password" class="form-control" placeholder="Password" name='password2'>
 	</div>
-	<div class="form-group">
-	  <label for="level">Select level:</label>
-	  	<select class="form-control" name="level">
-	   	<option>Newcomer</option>
-	    <option>Novice</option>
-	    <option>Intermediate</option>
-	    <option>Advanced</option>
-	    <option>Champion</option>
-	    <option>Champion Invitational</option>
-	  </select>
-	</div>
 	<button type="submit" class="btn btn-default">Submit</button>
 </form>
+
+          <!-- Add Employee  -->
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title"><strong>Add Employee</strong></h3>
+            </div>
+            <div class="panel-body">
+
+              <!-- Entry Form -->
+              <form>
+                <div class="form-group">
+                  <label for="employee-name-input">Employee Name</label>
+                  <input class="form-control" id="employee-name-input" type="text">
+                </div>
+                <div class="form-group">
+                  <label for="role-input">Role</label>
+                  <input class="form-control" id="role-input" type="text">
+                </div>
+                <div class="form-group">
+                  <label for="start-input">Start Date (DD/MM/YY - ex: 01/01/89)</label>
+                  <input class="form-control" id="start-input" type="text">
+                </div>
+                <div class="form-group">
+                  <label for="rate-input">Monthly Rate</label>
+                  <input class="form-control" id="rate-input" type="text">
+                </div>
+                <button class="btn btn-primary" id="add-employee-btn" type="submit">Submit</button>
+              </form>
+
+            </div>
+
+          </div>
