@@ -10,7 +10,6 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local'), Strategy;
 
 
-
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var contests = require('./routes/contests');
@@ -18,13 +17,12 @@ var contests = require('./routes/contests');
 // Init App
 var app = express();
 
+
 // View engine
 
 app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs({defaultLayout: 'layout'}));
 app.set('view engine', 'handlebars');
-
-
 
 // Middle ware
 

@@ -2,15 +2,12 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 
+
+
 var Contest = require('../models/contest');
 
-// HTML route
-// router.get('/prelim/juniors', function(req, res){
-// 	res.render('prelim');
-// });
-
 // Search for Specific Character (or all characters) - provides JSON
-router.get("/prelim/:division?", function(req, res) {
+router.get("/prelim/:division?", ensureAuthenticated, function(req, res) {
 
   var division = req.params.division;
 
@@ -44,6 +41,15 @@ router.get("/prelim/:division?", function(req, res) {
 router.post("/prelim/:divsiion?", function(req, res) {
 	console.log(res.body);
 });
+
+function ensureAuthenticated(req, res, next) {
+	if(req.isAuthenticated()) {
+		return next();
+	} else {
+		
+		res.redirect('/users/login'); 
+	}
+}
 
 
 

@@ -41,10 +41,6 @@ module.exports.createUser = function(newUser, callback) {
               email: newUser.email.toString(), pass_word: newUser.password.toString()}
           ]).toString();
 
-  //       var sql = "INSERT INTO users (firstname, lastname, username, email, pass_word)" +
-		// "VALUES ('" + newUser.first_name + "', '" + newUser.last_name + "', '" +
-		// newUser.username + "', '"  + newUser.email + "', '"  + newUser.password + "')";
-
 		 connection.query(sql, function(err, res) {
     		if (err) throw err;
 
