@@ -33,6 +33,23 @@ module.exports.getList = function(division, role, callback) {
   	});
 }
 
+module.exports.addScores = function(scores, round, division, judgeId) {
+	console.log(scores);
+	console.log(round);
+	console.log(judgeId);
+	var data = [];
+
+	for (var key in scores) {
+		data.push({bib_number: parseInt(key), round: round, division: division, score: scores[key], judge: judgeId.id});
+	}
+
+	console.log(data);
+
+	// var sql = squel.insert.()
+	// 		.into("scores")
+	// 		.setFieldsRows(data)
+}
+
 
 
 

@@ -15,8 +15,6 @@ router.get("/prelim/:division?", ensureAuthenticated, function(req, res) {
   var contests = ["juniors", "novice", "intermediate", "advanced", "champion", "masters"];
 
   if(contests.indexOf(division) > -1 ) {
-  	  // create a new contest
-  		var newContest = new Contest(division);
 
   		//**********************************************************************************//
   		//*** TODO: This role will be set by the judge information "judging leads or follows"
@@ -38,8 +36,16 @@ router.get("/prelim/:division?", ensureAuthenticated, function(req, res) {
   
 });
 
-router.post("/prelim/:divsion?", function(req, res) {
-	console.log(req.body);
+router.post("/:round/:divsion?", function(req, res) {
+
+	var judgeId = res.locals.user;
+	console.log(judgeId);
+	var scores = req.body;
+	var division = req.params.division;
+	var round = req.params.round;
+	
+	// insert data into database
+	Contest.addScores(scores, round, division, judgeId);
 });
 
 function ensureAuthenticated(req, res, next) {
