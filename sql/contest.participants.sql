@@ -33,4 +33,24 @@ VALUES
 (280, 'Moore', 'Casey', 'juniors', 'leader');
 
 USE contest;
+INSERT INTO participants(bib_number, lastname, firstname, division, role)
+VALUES  
+(420, 'Frank', 'Olivia', 'novice', 'follow'),
+(430, 'Johnson', 'Mandy', 'novice', 'follow'),
+(440, 'Thompson', 'Jessica', 'novice', 'follow'),
+(450, 'Misterek', 'Ashlynn', 'novice', 'follow'),
+(460, 'Misterek', 'Annabelle', 'novice', 'follow'),
+(470, 'Misterek', 'Selah', 'novice', 'follow'),
+(480, 'Oliveira', 'Sandra', 'novice', 'follow'),
+(520, 'Rider', 'Nicholas', 'novice', 'leader'),
+(530, 'Thompson', 'Dean', 'novice', 'leader'),
+(540, 'Polo', 'Marco', 'novice', 'leader'),
+(550, 'Salazar', 'Trevor', 'novice', 'leader'),
+(560, 'Jones', 'Brian', 'novice', 'leader'),
+(570, 'Wilson', 'Jordan', 'novice', 'leader'),
+(580, 'Moore', 'Casey', 'novice', 'leader');
+
+USE contest;
 SELECT * from participants WHERE division = 'juniors';
+
+SLE

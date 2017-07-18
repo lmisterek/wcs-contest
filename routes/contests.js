@@ -38,8 +38,8 @@ router.get("/prelim/:division?", ensureAuthenticated, function(req, res) {
   
 });
 
-router.post("/prelim/:divsiion?", function(req, res) {
-	console.log(res.body);
+router.post("/prelim/:divsion?", function(req, res) {
+	console.log(req.body);
 });
 
 function ensureAuthenticated(req, res, next) {
