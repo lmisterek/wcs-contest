@@ -36,10 +36,10 @@ router.get("/prelim/:division?", ensureAuthenticated, function(req, res) {
   
 });
 
-router.post("/:round/:divsion?", function(req, res) {
+router.post("/:round/:division?", function(req, res) {
 
 	var judgeId = res.locals.user;
-	console.log(judgeId);
+
 	var scores = req.body;
 	var division = req.params.division;
 	var round = req.params.round;
