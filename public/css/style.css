@@ -93,3 +93,7 @@ ul  {
 side-nav-links li {
     margin-bottom: 10px;
 }
+
+#ex1Slider .slider-selection {
+  background: #BABABA;
+}

@@ -38,7 +38,7 @@ module.exports.createUser = function(newUser, callback) {
         .into("users")
         .setFieldsRows([
             {firstname: newUser.first_name.toString(), lastname: newUser.last_name.toString(),
-              email: newUser.email.toString(), pass_word: newUser.password.toString()}
+              email: newUser.email.toString(), username: newUser.username.toString(), pass_word: newUser.password.toString()}
           ]).toString();
 
 		 connection.query(sql, function(err, res) {

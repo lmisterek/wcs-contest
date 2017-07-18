@@ -37,8 +37,13 @@ module.exports.addScores = function(scores, round, division, judgeId) {
 	var data = [];
 
 	for (var key in scores) {
-		data.push({bib_number: parseInt(key), round: round, division: division, score: scores[key], judge: judgeId.id});
-	}
+		data.push(
+			{ bib_number: parseInt(key), 
+				round: round, 
+				division: division, 
+				score: scores[key], 
+				judge: judgeId.id});
+	};
 
 
 	console.log(data);
@@ -46,8 +51,6 @@ module.exports.addScores = function(scores, round, division, judgeId) {
 			.into("scores")
 			.setFieldsRows(data)
 			.toString();
-
-			console.log(sql);
 
 	connection.query(sql, function(err, res) {
   		if(err) throw err;

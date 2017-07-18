@@ -7,14 +7,18 @@ var passport = require('passport');
 var Contest = require('../models/contest');
 
 // Search for Specific Character (or all characters) - provides JSON
-router.get("/prelim/:division?", ensureAuthenticated, function(req, res) {
+router.get("/:round/:division?", ensureAuthenticated, function(req, res) {
 
   var division = req.params.division;
+  var round = req.params.round;
 
   // Check to make sure that it is one of the given contests
   var contests = ["juniors", "novice", "intermediate", "advanced", "champion", "masters"];
 
+  
   if(contests.indexOf(division) > -1 ) {
+
+  		
 
   		//**********************************************************************************//
   		//*** TODO: This role will be set by the judge information "judging leads or follows"
@@ -24,7 +28,7 @@ router.get("/prelim/:division?", ensureAuthenticated, function(req, res) {
 
   		Contest.getList(division, role, function(err, list) {
   		
-  		res.render('prelim', {division: division, role: role, list: list});
+  		res.render('prelim', {division: division, role: role, list: list, round: round});
   		
 
   		});
@@ -46,6 +50,8 @@ router.post("/:round/:division?", function(req, res) {
 	
 	// insert data into database
 	Contest.addScores(scores, round, division, judgeId);
+
+	res.redirect("/");
 });
 
 function ensureAuthenticated(req, res, next) {
