@@ -1,10 +1,11 @@
     <!-- Employee Tracker -->
     <div class="container">
-
+	
       <!-- Jumbotron -->
       <div class="jumbotron" style="background-color: black; color: white">
-        <h1 class="text-center">{{division}} Preliminary Competition</h1>
-        <h2 class="text-center">{{role}} Follows</h2>
+        <h1 class="text-center">Preliminary Competition</h1>
+        <h2 class="text-center">{{division}}</h2>
+        <h2 class="text-center">{{role}}</h2>
       </div>
 
       <div class="row">
@@ -28,7 +29,33 @@
                   </tr>
                 </thead>
                 <tbody>
+                	{{#each list}}
+                	<tr>
+    				<td>{{this.bib_number}}</td>
+    				<td>{{role}}</td>
+    				<td>
+
+					<form>
+					<div class="dropdown">
+					  <select name="pre_limScores{{this.bib_number}}">
+						  <option value="1">1 (Best)</option>
+						  <option value="2">2</option>
+						  <option value="3">3</option>
+						  <option value="4">4</option>
+						  <option value="5">5</option>
+						</select>
+					</div>
+					</form>
+					</td>
+    				</tr>
+  					{{/each}}
+                	
+                	<td>
+                	<td>
                 </tbody>
+                <ul class="people_list">
+
+				</ul>
               </table>
             </div>
           	</div>
@@ -40,3 +67,14 @@
       </div>
 
     </div>
+<!--       <script type="text/javascript">
+
+     function runListQuery(){
+		console.log(list);
+	}
+
+    // Run Query!
+	// ==========================================
+	runListQuery();
+
+      </script> -->

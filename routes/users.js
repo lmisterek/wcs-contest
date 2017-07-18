@@ -18,7 +18,6 @@ router.get('/login', function(req, res){
 router.post('/login',
   passport.authenticate('local', {successRedirect:'/', failureRedirect:'/users/login', failureFlash: true}), 
 	function(req, res) {
-		console.log(res);
     res.redirect('/');
   }
   );
@@ -101,8 +100,6 @@ router.post('/register', function(req, res){
 		res.redirect('/users/login');
 	}
 });
-
-
 
 
 module.exports = router;

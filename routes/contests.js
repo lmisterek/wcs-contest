@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var passport = require('passport');
 
 var Contest = require('../models/contest');
 
@@ -10,28 +11,40 @@ var Contest = require('../models/contest');
 
 // Search for Specific Character (or all characters) - provides JSON
 router.get("/prelim/:division?", function(req, res) {
-  
+
   var division = req.params.division;
 
-  // create a new contest
-  var newContest = new Contest(division);
-  
-  console.log(newContest);
-  // pull up the list of 
-  // if (chosen) {
-  //   console.log(chosen);
+  // Check to make sure that it is one of the given contests
+  var contests = ["juniors", "novice", "intermediate", "advanced", "champion", "masters"];
 
-  //   for (var i = 0; i < characters.length; i++) {
-  //     if (chosen === characters[i].routeName) {
-  //       return res.json(characters[i]);
-  //     }
-  //   }
-  //   return res.json(false);
-  // }
-  // return res.json(characters);
+  if(contests.indexOf(division) > -1 ) {
+  	  // create a new contest
+  		var newContest = new Contest(division);
+
+  		//**********************************************************************************//
+  		//*** TODO: This role will be set by the judge information "judging leads or follows"
+  		// A temporary fix might be to let the judges choose lead or follow 
+  		//**********************************************************************************//
+  		var role = 'follow';
+
+  		Contest.getList(division, role, function(err, list) {
+  		
+  		res.render('prelim', {division: division, role: role, list: list});
+  		
+
+  		});
+  
+  }
+  else {
+  	  res.redirect('/');
+  }
+  
+});
+
+router.post("/prelim/:divsiion?", function(req, res) {
+	console.log(res.body);
 });
 
 
-console.log("on this page.");
 
 module.exports = router;
