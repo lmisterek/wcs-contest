@@ -37,8 +37,6 @@ module.exports.getList = function(division, role, callback) {
 module.exports.addScores = function(scores, round, division, judgeId) {
 	var data = [];
 
-	console.log(scores);
-
 	for (var key in scores) {
 		data.push(
 			{ bib_number: parseInt(key), 
@@ -48,8 +46,6 @@ module.exports.addScores = function(scores, round, division, judgeId) {
 				judge: judgeId.id});
 	};
 
-
-	console.log(data);
 	var sql = squel.insert()
 			.into("scores")
 			.setFieldsRows(data)
@@ -58,5 +54,39 @@ module.exports.addScores = function(scores, round, division, judgeId) {
 	connection.query(sql, function(err, res) {
   		if(err) throw err;
   	});
+}
+
+module.exports.judgeComplete = function(judge, division, callback) {
+
+	var complete = false;
+	
+	// look up results for this judge
+	var sql = squel.select()
+			.from("scores")
+			.limit(1)
+			.where("division = '" + division + "'")
+			.where("judge = '" + judge.id + "'")
+			.toString();
+
+	// if there are results, then return true
+		connection.query(sql, function(err, res) {
+  
+  		if(err) throw err;
+  		
+  		else {
+  			
+  			// If there is a score in the database
+  			if (res.length = 1){
+  				complete =  true;
+  			}
+
+  			callback(null, complete);
+  		}
+
+  			
+  	});
+
+
+
 }
 

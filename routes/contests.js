@@ -7,51 +7,70 @@ var passport = require('passport');
 
 var Contest = require('../models/contest');
 
-// Create a list of heats to judge
-router.get("/:round/:division?", ensureAuthenticated, function(req, res) {
+// This route creates prelim and semi-finals judge sheets
 
+router.get("/judge/:round/:division?", ensureAuthenticated, function(req, res) {
+
+  var judge = res.locals.user;
   var division = req.params.division;
   var round = req.params.round;
 
-  // Check to make sure that it is one of the given contests
-  var contests = ["juniors", "novice", "intermediate", "advanced", "champion", "masters"];
+  // Check to see if this contest has been judged
+	Contest.judgeComplete(judge, division, function (err, result) {
+			if (err) throw err;
+
+
+			res.render('prelimResults');
+	
+	});
+
+  // if(Contest.judgeComplete(judge, division)) {
+  // 		
+  // }
+
+//   else {
+//   		  // Check to make sure that it is one of the given contests
+//   		var contests = ["juniors", "novice", "intermediate", "advanced", "champion", "masters"];
+
 
   
-  if(contests.indexOf(division) > -1 ) {
+//   		if(contests.indexOf(division) > -1 ) {
 
 
 
-  		//**********************************************************************************//
-  		//*** TODO: This role will be set by the judge information "judging leads or follows"
-  		// A temporary fix might be to let the judges choose lead or follow 
-  		//**********************************************************************************//
-  		var role = 'follow';
+//   		//**********************************************************************************//
+//   		//*** TODO: This role will be set by the judge information "judging leads or follows"
+//   		// A temporary fix might be to let the judges choose lead or follow 
+//   		//**********************************************************************************//
+//   		var role = 'follow';
 
-  		Contest.getList(division, role, function(err, list) {
+//   		Contest.getList(division, role, function(err, list) {
   		
   
-  		res.render('prelim', {division: division, role: role, list: list, round: round});
+//   		res.render('prelim', {division: division, role: role, list: list, round: round});
   		
 
-  		});
+//   		});
 
 
   
-  }
-  else {
-  	  res.redirect('/');
-  }
+//   		}
+//   		else {
+//   	  	res.redirect('/');
+//   	}
+
+//   }
+
+
   
 });
 
 
-router.post("/:round/:division?", function(req, res) {
+// This route posts the results from the judge sheets and then redirects to the dashboard
+router.post("/judge/:round/:division?", function(req, res) {
 
 	var judgeId = res.locals.user;
-	console.log("in here.");
-
 	var scores = req.body;
-	console.log(req.body);
 	var division = req.params.division;
 	var round = req.params.round;
 	
@@ -61,6 +80,12 @@ router.post("/:round/:division?", function(req, res) {
 
 	res.redirect("/");
 });
+
+router.get("/results/:round/:division?", ensureAuthenticated, function(req, res) {
+	res.render('prelimResults');
+});
+
+
 
 function ensureAuthenticated(req, res, next) {
 	if(req.isAuthenticated()) {
