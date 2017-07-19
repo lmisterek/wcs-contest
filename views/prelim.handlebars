@@ -12,9 +12,6 @@
 
         <div class="col-lg-12">
 
-          <div class="well">
-         <!--    <input type="text" class="span2" value="4" id="sl1" > -->
-          </div>
         <form method="POST">
         	<div class="form-group">
           	<div class="panel panel-primary">
@@ -30,7 +27,7 @@
                     <th>Score</th>
                   </tr>
                 </thead>
-                <form method="POST" role="form">
+              
                 <tbody>
                 	{{#each list}}
                 	<tr>
@@ -40,28 +37,21 @@
     					
 						<div class="well">
 							<b>YES</b>
-            				<input type="text" class="span2" value="3" id="{{this.bib_number}}" data-slider-max="3"
+            				<input type="text" class="span2" value="3" name= {{this.bib_number}} id="{{this.bib_number}}" data-slider-max="3"
             				data-slider-min="1" >
+            	
             				<b>NO</b>
          				</div>
-					
-<!-- 					<div class="dropdown">
-					  <select name="{{this.bib_number}}">
-						  <option value="1">1 (Best)</option>
-						  <option value="2">2</option>
-						  <option value="3">3</option>
-						  <option value="4">4</option>
-						  <option value="5">5</option>
-						</select>
-					</div> -->
+
 					
 					</td>
     				</tr>
   					{{/each}}
 
                 </tbody>
-                </form>
-              </table>
+                </table>
+            
+              
             </div>
           	</div>
           	</div>
@@ -72,66 +62,20 @@
       </div>
 
     </div>
+
 <!-- BELOW CODE IS CRITICAL. IT HANDLES HOW FORM DATA IS SENT TO OUR SERVER -->
 <script type="text/javascript">
 
+for(var i = 100; i < 1000; i++) {
 
-// Without JQuery
-// With JQuery
-// var List = !{list};
-// console.log(List);
-        $('#120').slider({
-          formater: function(value) {
-      
-            return 'Current value: '+value;
-          }
-        });
+	if($('#' +i)[0]) {
+		$('#' +i).slider();
+	}
 
-    // In this code below we create the Front-end JavaScript which "POSTS" our form data to our express server.
-    // In essence, when the user hits submit, jQuery grabs all of the fields then sends a post request to our api
-    // Our api recognizes the route (/api/tables)... and then runs the associated code (found in api-routes.js).
-    // In this case the associated code "saves" the data to the table-data.js file or waitinglist-data.js file
+}
 
-    // $("#score-prelims-btn").on("click", function(event) {
-    //   event.preventDefault();
 
-    //   console.log()
-      // // Here we grab the form elements
-      // var newScore = {
-      //   customerName: $("#reserve-name").val().trim(),
-      //   phoneNumber: $("#reserve-phone").val().trim(),
-      //   customerEmail: $("#reserve-email").val().trim(),
-      //   customerID: $("#reserve-unique-id").val().trim()
-      // };
 
-      // console.log(newReservation);
 
-      // // This line is the magic. It"s very similar to the standard ajax function we used.
-      // // Essentially we give it a URL, we give it the object we want to send, then we have a "callback".
-      // // The callback is the response of the server. In our case, we set up code in api-routes that "returns" true or false
-      // // depending on if a tables is available or not.
-
-      // $.post("/api/tables", newReservation,
-      //   function(data) {
-
-      //     // If a table is available... tell user they are booked.
-      //     if (data) {
-      //       alert("Yay! You are officially booked!");
-      //     }
-
-      //     // If a table is available... tell user they on the waiting list.
-      //     else {
-      //       alert("Sorry you are on the wait list");
-      //     }
-
-      //     // Clear the form when submitting
-      //     $("#reserve-name").val("");
-      //     $("#reserve-phone").val("");
-      //     $("#reserve-email").val("");
-      //     $("#reserve-unique-id").val("");
-
-      //   });
-
-    // });
 
 </script>

@@ -1,5 +1,6 @@
 var mysql = require('mysql');
 var squel = require('squel');
+var jquery = require('jquery');
 
 var connection = mysql.createConnection({
   host     : '127.0.0.1',
@@ -36,6 +37,8 @@ module.exports.getList = function(division, role, callback) {
 module.exports.addScores = function(scores, round, division, judgeId) {
 	var data = [];
 
+	console.log(scores);
+
 	for (var key in scores) {
 		data.push(
 			{ bib_number: parseInt(key), 
@@ -57,33 +60,3 @@ module.exports.addScores = function(scores, round, division, judgeId) {
   	});
 }
 
-
-
-
-
-// module.exports.getLeads = function() {
-// 	console.log("in here");
-	// Put user into the database
- //        var sql = "INSERT INTO users (firstname, lastname, username, email, pass_word)" +
-	// 	"VALUES ('" + newUser.first_name + "', '" + newUser.last_name + "', '" +
-	// 	newUser.username + "', '"  + newUser.email + "', '"  + newUser.password + "')";
-
-	// 	connection.query(sql, function(err, res) {
- //    		if (err) throw err;
-
- //        console.log(res);
-
-		// }
-
-// 	var sql = "SELECT * from participants WHERE division = '" + division + "'";
-// 	console.log(sql);
-// }
-
-// module.exports.getParticipants = function(id, callback) {
-
-// 	// Search for user in the data base
-//     var sql = "SELECT * from users WHERE id = '" + id + "'";
-// 	connection.query(sql, function(err, res) {
-//     	callback(err, res[0]);
-//   		});
-// }
