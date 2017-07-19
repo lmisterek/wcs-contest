@@ -70,19 +70,18 @@ module.exports.judgeComplete = function(judge, division, callback) {
 
 	// if there are results, then return true
 		connection.query(sql, function(err, res) {
-  
+  		
   		if(err) throw err;
   		
   		else {
   			
-  			// If there is a score in the database
-  			if (res.length = 1){
+  			// If there is a score in the database, then the judge has scored the contest
+  			if (res.length == 1){
   				complete =  true;
   			}
 
   			callback(null, complete);
   		}
-
   			
   	});
 

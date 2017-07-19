@@ -16,54 +16,31 @@ router.get("/judge/:round/:division?", ensureAuthenticated, function(req, res) {
   var round = req.params.round;
 
   // Check to see if this contest has been judged
-	Contest.judgeComplete(judge, division, function (err, result) {
+  Contest.judgeComplete(judge, division, function (err, result) {
 			if (err) throw err;
 
+			if(result) {
+				res.render('prelimResults');
+			}
 
-			res.render('prelimResults');
-	
-	});
+			else {
+				 // Check to make sure that it is one of the given contests
+  				var contests = ["juniors", "novice", "intermediate", "advanced", "champion", "masters"];
 
-  // if(Contest.judgeComplete(judge, division)) {
-  // 		
-  // }
+  				if(contests.indexOf(division) > -1 ) {
 
-//   else {
-//   		  // Check to make sure that it is one of the given contests
-//   		var contests = ["juniors", "novice", "intermediate", "advanced", "champion", "masters"];
+	  				var role = 'follow';
 
-
-  
-//   		if(contests.indexOf(division) > -1 ) {
-
-
-
-//   		//**********************************************************************************//
-//   		//*** TODO: This role will be set by the judge information "judging leads or follows"
-//   		// A temporary fix might be to let the judges choose lead or follow 
-//   		//**********************************************************************************//
-//   		var role = 'follow';
-
-//   		Contest.getList(division, role, function(err, list) {
-  		
-  
-//   		res.render('prelim', {division: division, role: role, list: list, round: round});
-  		
-
-//   		});
-
-
-  
-//   		}
-//   		else {
-//   	  	res.redirect('/');
-//   	}
-
-//   }
-
-
-  
-});
+	  				Contest.getList(division, role, function(err, list) {
+	  					res.render('prelim', {division: division, role: role, list: list, round: round});
+	  				});
+	  			}
+  				else {
+  	 				 	res.redirect('/');
+  				}
+  			}
+ 	});
+ });
 
 
 // This route posts the results from the judge sheets and then redirects to the dashboard
@@ -76,7 +53,6 @@ router.post("/judge/:round/:division?", function(req, res) {
 	
 	// insert data into database
 	Contest.addScores(scores, round, division, judgeId);
-
 
 	res.redirect("/");
 });
