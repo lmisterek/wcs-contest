@@ -10,13 +10,14 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local'), Strategy;
 
 
+
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var contests = require('./routes/contests');
 
 // Init App
 var app = express();
-
 
 // View engine
 

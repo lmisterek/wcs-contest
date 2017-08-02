@@ -1,4 +1,4 @@
-    <!-- Employee Tracker -->
+    <!-- Prelim Score Sheet -->
     <div class="container">
 	
       <!-- Jumbotron -->
@@ -16,7 +16,7 @@
         	<div class="form-group">
           	<div class="panel panel-primary">
             <div class="panel-heading">
-              <h3 class="panel-title"><strong>Heat One</strong></h3>
+              <h3 class="panel-title"><strong>{{heat}}</strong></h3>
             </div>
             <div class="panel-body">
               <table class="table table-hover" id='prelim-heatOne'>
@@ -37,7 +37,7 @@
     					
 						<div class="well">
 							<b>YES</b>
-            				<input type="text" class="span2" value="3" name= {{this.bib_number}} id="{{this.bib_number}}" data-slider-max="3"
+            				<input type="text" class="span2 dancer" value="3" name= {{this.bib_number}} id="{{this.bib_number}}" data-slider-max="3"
             				data-slider-min="1" >
             	
             				<b>NO</b>
@@ -65,17 +65,8 @@
 
 <!-- BELOW CODE IS CRITICAL. IT HANDLES HOW FORM DATA IS SENT TO OUR SERVER -->
 <script type="text/javascript">
-
-for(var i = 100; i < 1000; i++) {
-
-	if($('#' +i)[0]) {
-		$('#' +i).slider();
-	}
-
-}
-
-
-
-
-
+$( document ).ready(function() {
+   $('.dancer').slider();
+});
+	
 </script>

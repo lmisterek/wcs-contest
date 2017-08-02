@@ -2,15 +2,7 @@ var bcrypt = require('bcryptjs');
 var mysql = require('mysql');
 var squel = require('squel');
 
-
-var connection = mysql.createConnection({
-  host     : '127.0.0.1',
-  user     : 'root',
-  password : '',
-  database : 'contest'
-});
-
-connection.connect();
+var connection = require("../config/connection.js");
 
 
 
@@ -42,6 +34,7 @@ module.exports.createUser = function(newUser, callback) {
           ]).toString();
 
 		 connection.query(sql, function(err, res) {
+      console.log(sql);
     		if (err) throw err;
 
   		});
@@ -52,7 +45,7 @@ module.exports.createUser = function(newUser, callback) {
 module.exports.getUserByUsername= function(username, callback) {
 
 	// Search for user in the data base
-    var sql = "SELECT * from users WHERE username = '" + username + "'";
+  var sql = "SELECT * from users WHERE username = '" + username + "'";
 
 
 	connection.query(sql, function(err, res) {
