@@ -1,18 +1,31 @@
 var bcrypt = require('bcryptjs');
-var mysql = require('mysql');
-var squel = require('squel');
+// var mysql = require('mysql');
+// var squel = require('squel');
 
-var connection = require("../config/connection.js");
+// var connection = require("../config/connection.js");
+
+'use strict';
+
+module.exports = function(sequelize, DataTypes) {
+  var User = sequelize.define('User', {
+    firstname: DataTypes.STRING,
+    lastname: DataTypes.STRING,
+    username: DataTypes.STRING,
+    email: DataTypes.STRING,
+    password: DataTypes.TEXT
+  });
+  return User;
+};
 
 
 
-function User(last, first, email, username, password){
-  this.last_name = last,
-	this.first_name = first,
-	this.email = email,
-	this.username = username,
-	this.password = password
-}
+// function User(last, first, email, username, password){
+//   this.last_name = last,
+// 	this.first_name = first,
+// 	this.email = email,
+// 	this.username = username,
+// 	this.password = password
+// }
 
 
 

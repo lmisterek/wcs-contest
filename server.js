@@ -10,7 +10,8 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local'), Strategy;
 
 
-
+// Requiring our models for syncing
+var db = require("./models");
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -82,10 +83,17 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/contests', contests);
 
+// Requiring our models for syncing
+var db = require("./models");
 
 // set port
 app.set('port', (process.env.PORT || 3000));
 
-app.listen(app.get('port'), function() {
-	console.log('listening on port ' + app.get('port'));
+// Syncing our sequelize models and then starting our Express app
+// ================================================================================
+db.sequelize.sync({ force: true}).then(function() {
+	app.listen(PORT, function() {
+		console.log("App listening on PORT " + PORT);
+	});
 });
+
