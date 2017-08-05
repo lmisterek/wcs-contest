@@ -3,7 +3,7 @@ var router = express.Router();
 var passport = require('passport');
 
 
-var Contest = require('../models/contest');
+var Contest = require('../modelsj/contest');
 var convention = require('../config/dcsData.js');
 
 router.get("/results/:round/:division?", ensureAuthenticated, function(req, res) {

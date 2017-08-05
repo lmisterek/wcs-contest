@@ -3,7 +3,7 @@ var router = express.Router();
 var passport = require('passport');
 
 
-var Contest = require('../models/contest');
+var Contest = require('../modelsj/contest');
 var orm = require('../config/orm.js');
 var convention = require('../config/dcsData.js');
 
