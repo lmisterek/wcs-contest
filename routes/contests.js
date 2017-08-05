@@ -3,8 +3,7 @@ var router = express.Router();
 var passport = require('passport');
 
 
-// var Contest = require('../models/contest');
-var orm = require('../config/orm.js');
+var db = require('../models');
 var convention = require('../config/dcsData.js');
 
 
@@ -22,62 +21,25 @@ router.get("/judge/:round/:division/:role", ensureAuthenticated, function(req, r
     	 res.redirect('/');
     	 return;
     }
+    else {
+    	db.Participant.findAll({}).then((results) => {
+    		console.log(judge);
+    		console.log(results);
+    		var group = [];
+    		for(var i = 0; i < results.length; i++) {
+    			var participant = results[i].dataValues;
+    			console.log(participant);
+    			group.push(participant);
+    		}
 
-  // Check to see if this contest has been judged
-  // Returns a true or false value
-  Contest.judgeComplete(judge, division, function (err, result){
+    		res.render('prelim', {division: division, role: role, list: group, round: round});
 
-  		// If the judge has completed the judging form, re-route the judge to the results page
-  		if(result) {
-  				var newUrl = "/contests/results/" + round + "/" + division;
-		 		res.redirect(newUrl);
+    	});
 
-  		}
-  		else {
-  			var table = "participants";
-  			var condition = "division = '" + division + "'";
-			orm.allWhere(table, condition, function(data) {
-	  			// Create a separated list of leads/follows
-	  			var sepList = Contest.separateByRole(data);
+  		
+    }
 
-	  			// Determine the number of heats from the total number of leads/follows
-	  			var heats = Contest.determineHeats(sepList, role);
-
-	  			console.log(sepList);
-	  			var numHeats = heats.number;
-	  			var group = [];
-
-	  			// // Determine which heat number to send
-	  			// for (var i = numHeats; i > 0; i--) {
-	  			// 	var heat = "heat" + i;
-	  			// 	var person = heats[role][heat][0];
-	  				
-	  			// 	// Check to see if the heat has been judged
-	  			// 	Contest.heatJudged(person.bib_number, person.division, person.round, function(err, score) {
-	  				
-	  			// 		if(!score) {
-	  			// 			var group = heats[role][heat];
-	  			// 			// res.render('prelim', {division: division, role: role, list: group, heat: heat, round: round});
-	  			// 			res.end();
-	  			// 		}
-		 				
-	  			// 	}); // end of function heatJudged
-
-
-
-	  				
-	  			// } // end of for loop
-	  			// if( i == 0 ) {
-	  			// 	var newUrl = "/contests/results/" + round + "/" + division;
-		 			// 	res.redirect(newUrl);
-	  			// }
-	  			
-	  			res.render('prelim', {division: division, role: role, list: data, round: round});
-	  	});
-	  }  // end of else statement
-
-  }); // end of judge complete
-
+    	
  });
 
 
