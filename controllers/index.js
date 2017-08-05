@@ -45,17 +45,17 @@ router.post('/scores', function(req, res) {
     var division = "";
     var round = "";
 
-    for (let key in req.body) {
-        if (key === "judgeNum") {
-            judge = req.body[key];
-        }
-        if (key === "division") {
-            division = req.body[key];
-        }
-        if (key === "round") {
-            round = req.body[key];
-        }
-    }
+    // for (let key in req.body) {
+    //     if (key === "judgeNum") {
+    //         judge = req.body[key];
+    //     }
+    //     if (key === "division") {
+    //         division = req.body[key];
+    //     }
+    //     if (key === "round") {
+    //         round = req.body[key];
+    //     }
+    // }
     for (let key in req.body) {
         if (key != "judgeNum" || key != "division" || key != "round") {
             let score = req.body[key];
@@ -64,9 +64,9 @@ router.post('/scores', function(req, res) {
 
             db.Scores.create({
                 bib_number: bib_number,
-                division: division,
-                round: round,
-                judge: judge,
+                division: "division",
+                round: "round",
+                judge: "judge",
                 score: score
             }).then(() => {
                 console.log('created Scores');
