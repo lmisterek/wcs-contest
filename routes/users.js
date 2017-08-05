@@ -3,7 +3,8 @@ var router = express.Router();
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
-var User = require('../models/user');
+// Requiring our Todo model
+var db = require("../models");
 
 // Register
 router.get('/register', function(req, res){
@@ -30,24 +31,31 @@ router.get('/logout', function(req, res) {
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
- 	User.getUserByUsername(username, function(err, user) {
- 		if (err) throw err;
 
- 		if(!user) {
- 			return done(null, false, {message: 'Uknown User'});
- 		}
+  	db.User.findOne({username: username, password: password}).then(function(dbUser) {
+  		return done(null, dbUser.dataValues);
+  	});
 
- 		User.comparePassword(password, user.pass_word, function(err, isMatch) {
- 			if(err) throw err;
 
- 			if(isMatch) {
- 				return done(null, user);
- 			} else {
- 				return done(null, false, {message: 'Invalid Password'});
- 			}
- 		});
 
- 	});
+ 	// db.User.getUserByUsername(username, function(err, user) {
+ 	// 	if (err) throw err;
+
+ 	// 	if(!user) {
+ 	// 		return done(null, false, {message: 'Uknown User'});
+ 	// 	}
+
+ 		// db.User.comparePassword(password, user.pass_word, function(err, isMatch) {
+ 		// 	if(err) throw err;
+
+ 		// 	if(isMatch) {
+ 		// 		return done(null, user);
+ 		// 	} else {
+ 		// 		return done(null, false, {message: 'Invalid Password'});
+ 		// 	}
+ 		// });
+
+ 	// });
   }));
 
 passport.serializeUser(function(user, done) {
@@ -55,14 +63,26 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-  User.getUserById(id, function(err, user) {
-    done(err, user);
+  db.User.findOne({id: id}).then(function(dbUser) {
+  	done(null, dbUser.dataValues);
+
   });
+  
+  // User.getUserById(id, function(err, user) {
+  //   done(err, user);
+  // });
 });
+
+// passport.deserializeUser(function(id, done) {
+//   User.getUserById(id, function(err, user) {
+//     done(err, user);
+//   });
+// });
 
 // Register User
 
 router.post('/register', function(req, res){
+
 	var last_name = req.body.last_name;
 	var first_name = req.body.first_name;
 	var email = req.body.email;
@@ -86,14 +106,17 @@ router.post('/register', function(req, res){
 		})
 	}
 	else {
-		console.log("here");
 
-		var newUser = new User(last_name, first_name, email, username, password);
 
-		 User.createUser(newUser, function(err, user) {
-		 	if(err) throw err;
+		// Add the person to the database
+		db.User.create({
+			firstname: req.body.first_name,
+    		lastname: req.body.last_name,
+    		username: req.body.username,
+   			email: req.body.email,
+    		password: req.body.password
+		});
 
-		 });
 
 		 // TODO:  Fix this flash message
 		req.flash('success_msg', 'You are registered and can now login');
