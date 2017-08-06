@@ -1,5 +1,5 @@
 {
-    "development": {
+  "development": {
     "username": "root",
     "password": "steel61sql",
     "database": "contest",
@@ -13,11 +13,11 @@
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
-  "production": {    
-    "username": "va2tbrmxib0xo8m2",
-    "password": "z4dkuv7jlmd6jh44",    
-    "host": "i943okdfa47xqzpy.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
-    "use_env_variable": "JAWSDB_URL",
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
     "dialect": "mysql"
   }
 }

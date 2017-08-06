@@ -8,17 +8,18 @@ var flash = require('connect-flash');
 var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local'), Strategy;
-var db = require("./models");
-var port = process.env.PORT || 3006;
 
 
-
-var routes = require('./controllers/index');
-// var users = require('./controllers/users');
-// var contests = require('./controllers/contests');
+var routes = require('./routes/index');
+var users = require('./routes/users');
+var contests = require('./routes/contests');
 
 // Init App
 var app = express();
+var PORT = process.env.PORT || 8080;
+
+// Requiring our models for syncing
+var db = require("./models");
 
 // View engine
 
@@ -80,21 +81,15 @@ app.use(function (req, res, next) {
 })
 
 app.use('/', routes);
-// app.use('/users', users);
-// app.use('/contests', contests);
+app.use('/users', users);
+app.use('/contests', contests);
 
 
-// set port
-// app.set('port', (process.env.PORT || 3000));
-
-// app.listen(app.get('port'), function() {
-// 	console.log('listening on port ' + app.get('port'));
-// });
-
-db.sequelize.sync(
-	// { force: true }
-	).then(function() {
-  app.listen(port, function() {
-    console.log("App listening on " + port);
-  });
+// Syncing our sequelize models and then starting our Express app
+// ================================================================================
+db.sequelize.sync().then(function() {
+	app.listen(PORT, function() {
+		console.log("App listening on PORT " + PORT);
+	});
 });
+
