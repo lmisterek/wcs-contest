@@ -8,6 +8,13 @@ module.exports = function(sequelize, DataTypes) {
     division: DataTypes.STRING,
     role: DataTypes.STRING
   });
+
+  Participant.associate = function(models) {
+    // Associating Participant with Scores
+    Participant.hasMany(models.Score, {foreignKey: 'bib_number'});
+  };
+
+
   return Participant;
 };
 

@@ -9,20 +9,31 @@ var convention = require('../config/dcsData.js');
 
 
 
-router.get("/results/:round/:division?", function(req, res) {
+router.get("/results/:round/:division/:role", function(req, res) {
 
 	var division = req.params.division;
-	console.log(division);
   	var round = req.params.round;
-  	var role = "follow";
-  	var table1 = "scores";
-  	var table2 = "participants";
+  	var role = req.params.role;
 
-  	if(convention.contests.indexOf(division) == -1){
-  			
-  	}
+  	console.log(division);
+  	db.Score.findAll({
+  		where: {
+  			division: division, 
+  			round: round
+  		}
+  		}).then((results) => {
+  			console.log(results);
+  		});
   	
+  	// db.Participant.findAll({
+	  //           where: {
+	  //               role: role,
+	  //               division: division
+	  //           }
+		 //        }).then((results) => {
+		 //            res.render('prelim', { division: division, role: role, list: results, round: round });
 
+		 //        });
 
   	Contest.joinTablesByDiv(table1, table2, division, function(err, scores) {
 
