@@ -1,14 +1,18 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
+var db = require('../models');
 
 
-var Contest = require('../models/contest');
+var Contest = require('../modelsOld/contest');
 var convention = require('../config/dcsData.js');
 
-router.get("/results/:round/:division?", ensureAuthenticated, function(req, res) {
+
+
+router.get("/results/:round/:division?", function(req, res) {
 
 	var division = req.params.division;
+	console.log(division);
   	var round = req.params.round;
   	var role = "follow";
   	var table1 = "scores";
@@ -61,3 +65,4 @@ router.get("/results/:round/:division?", ensureAuthenticated, function(req, res)
   	}); 
 
 });
+

@@ -7,70 +7,75 @@ var LocalStrategy = require('passport-local').Strategy;
 var db = require("../models");
 
 // Register
-router.get('/register', function(req, res){
-	res.render('register');
+router.get('/register', function(req, res) {
+    res.render('register');
 });
 
 // Login
-router.get('/login', function(req, res){
-	res.render('login');
+router.get('/login', function(req, res) {
+    res.render('login');
 });
 
 router.post('/login',
-  passport.authenticate('local', {successRedirect:'/', failureRedirect:'/users/login', failureFlash: true}), 
-	function(req, res) {
-    res.redirect('/');
-  }
-  );
+    passport.authenticate('local', { successRedirect: '/', failureRedirect: '/users/login', failureFlash: true }),
+    function(req, res) {
+        res.redirect('/');
+    }
+);
 
 router.get('/logout', function(req, res) {
-	req.logout();
-	req.flash('success_msg', 'You are logged out');
-	res.redirect('login');
+    req.logout();
+    req.flash('success_msg', 'You are logged out');
+    res.redirect('login');
 });
 
 passport.use(new LocalStrategy(
-  function(username, password, done) {
 
-  	db.User.findOne({username: username, password: password}).then(function(dbUser) {
-  		return done(null, dbUser.dataValues);
-  	});
+    function(username, password, done) {
+
+        db.User.findOne({ where: {username: username, password: password }}).then(function(dbUser) {
+        	
+            return done(null, dbUser);
+        });
 
 
 
- 	// db.User.getUserByUsername(username, function(err, user) {
- 	// 	if (err) throw err;
+        // db.User.getUserByUsername(username, function(err, user) {
+        // 	if (err) throw err;
 
- 	// 	if(!user) {
- 	// 		return done(null, false, {message: 'Uknown User'});
- 	// 	}
+        // 	if(!user) {
+        // 		return done(null, false, {message: 'Uknown User'});
+        // 	}
 
- 		// db.User.comparePassword(password, user.pass_word, function(err, isMatch) {
- 		// 	if(err) throw err;
+        // db.User.comparePassword(password, user.pass_word, function(err, isMatch) {
+        // 	if(err) throw err;
 
- 		// 	if(isMatch) {
- 		// 		return done(null, user);
- 		// 	} else {
- 		// 		return done(null, false, {message: 'Invalid Password'});
- 		// 	}
- 		// });
+        // 	if(isMatch) {
+        // 		return done(null, user);
+        // 	} else {
+        // 		return done(null, false, {message: 'Invalid Password'});
+        // 	}
+        // });
 
- 	// });
-  }));
+        // });
+    }));
+
 
 passport.serializeUser(function(user, done) {
-  done(null, user.id);
+    done(null, user.id);
 });
 
 passport.deserializeUser(function(id, done) {
-  db.User.findOne({id: id}).then(function(dbUser) {
-  	done(null, dbUser.dataValues);
 
-  });
-  
-  // User.getUserById(id, function(err, user) {
-  //   done(err, user);
-  // });
+    db.User.findOne({ where: {id: id }}).then(function(dbUser) {
+        done(null, dbUser.dataValues);
+
+    });
+
+    // User.getUserById(id, function(err, user) {
+    //   done(err, user);
+    // });
+
 });
 
 // passport.deserializeUser(function(id, done) {
@@ -81,6 +86,7 @@ passport.deserializeUser(function(id, done) {
 
 // Register User
 
+<<<<<<< HEAD
 router.post('/register', function(req, res){
 
 	var last_name = req.body.last_name;
@@ -123,6 +129,7 @@ router.post('/register', function(req, res){
 
 		res.redirect('/users/login');
 	}
+
 });
 
 
