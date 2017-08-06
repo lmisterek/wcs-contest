@@ -86,7 +86,6 @@ passport.deserializeUser(function(id, done) {
 
 // Register User
 
-<<<<<<< HEAD
 router.post('/register', function(req, res){
 
 	var last_name = req.body.last_name;
