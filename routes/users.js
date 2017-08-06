@@ -33,9 +33,7 @@ passport.use(new LocalStrategy(
     function(username, password, done) {
 
         db.User.findOne({ where: {username: username, password: password }}).then(function(dbUser) {
-        	var x = JSON.stringify(dbUser);
-        	var y = JSON.parse(x);
-        	console.log("-----" + y.username);
+        	
             return done(null, dbUser);
         });
 
