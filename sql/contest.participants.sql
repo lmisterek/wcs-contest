@@ -17,12 +17,13 @@ USE contest;
 USE contest;
 INSERT INTO participants(bib_number, lastname, firstname, division, role)
 VALUES  
-(120, 'Frank', 'Olivia', 'novice', 'follow'),
-(130, 'Johnson', 'Mandy', 'novice', 'follow'),
-(140, 'Thompson', 'Jessica', 'novice', 'follow'),
-(150, 'Misterek', 'Ashlynn', 'novicd', 'follow'),
-(160, 'Misterek', 'Annabelle', 'juniors', 'follow'),
-(170, 'Misterek', 'Selah', 'juniors', 'follow'),
+(120, 'Frank', 'Olivia', 'novice', 'follow', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
+(130, 'Johnson', 'Mandy', 'novice', 'follow', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
+(140, 'Thompson', 'Jessica', 'intermediate', 'follow', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
+(150, 'Misterek', 'Ashlynn', 'novice', 'lead', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
+(160, 'Misterek', 'Annabelle', 'intermediate', 'lead', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
+(170, 'Misterek', 'Selah', 'intermediate', 'lead', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP())
+
 (180, 'Oliveira', 'Sandra', 'juniors', 'follow'),
 (220, 'Rider', 'Nicholas', 'juniors', 'leader'),
 (230, 'Thompson', 'Dean', 'juniors', 'leader'),
