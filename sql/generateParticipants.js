@@ -4,6 +4,7 @@ var express = require('express');
 var Faker = require('Faker');
 var mysql = require('mysql');
 var squel = require('squel');
+var fs = require('fs');
 
 // Init App
 var app = express();
@@ -26,11 +27,16 @@ var Bibs = createBibs();
 var participants = [];
 
 // Generate Novice Lead/Follows
-var noviceFollow = createDancer(num_novice_follow, "novice", "follow");
-var noviceLead = createDancer(num_novice_leads, "novice", "lead");
-participants = participants.concat(noviceFollow);
+var Follow = createDancer(num_novice_follow, "champion", "follow");
+var Lead = createDancer(num_novice_leads, "champion", "lead");
+
+participants = participants.concat(Follow);
+participants = participants.concat(Lead);
+
 
 console.log(participants);
+
+
 
 // Insert participants into the database
 var table = "participants";
