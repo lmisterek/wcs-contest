@@ -1,6 +1,8 @@
+'use strict';
+
 module.exports = function(sequelize, DataTypes) {
     var Score = sequelize.define("Score", {
-        bib_number: DataTypes.STRING,
+        // bib_number: DataTypes.STRING,
         division: DataTypes.STRING,
         round: DataTypes.STRING,
         judge: DataTypes.STRING,

@@ -71,7 +71,6 @@ router.post("/:round/:division/:role", function(req, res) {
     res.redirect("/");
 });
 
-//James took this route from results.js in the routes directory
 router.get("/results/:round/:division/:role", function(req, res) {
     console.log(req.params.round);
     let round = req.params.round;
@@ -85,6 +84,8 @@ router.get("/results/:round/:division/:role", function(req, res) {
         include: [{ model: db.Participant }]
     }).then((scores) => {
         var participants = [];
+        // console.log(scores[0]);
+        console.log(scores[0].Participant.role);
         for (let i in scores) {
             var index = findIndex(participants, scores[i].bib_number);
             var judge = "judge" + scores[i].judge;
