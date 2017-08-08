@@ -146,14 +146,22 @@ function findIndex(array, value) {
 
     for (var i = 0; i < array.length; i++) {
 
-        var index = Object.values(array[i]).indexOf(value);
-
-        if (index > -1) {
-            return i;
+    	var object = array[i];
+        // var index = Object.values(array[i]).indexOf(value);
+        for(var key in object) {
+        	if(object[key]==value)
+        	return i;
         }
+
+        // if (index > -1) {
+        //     return i;
+        // }
     }
     return -1;
 }
+
+
+
 
 function orderObjByKey(array, key) {
     array.sort(function(a, b) { return a.total - b.total; });
