@@ -27,7 +27,10 @@ router.get("/judge/:round/:division/:role", ensureAuthenticated, function(req, r
     	// Check to see if the judge has judged this competition
     	db.Score.findAll({
     		where: {
-    			judge: judge.id
+    			judge: judge.id,
+    			division: division,
+    			round: round,
+    			role: role
     		}
     	}).then((results) => {
    
