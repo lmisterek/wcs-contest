@@ -30,6 +30,7 @@ router.get('/logout', function(req, res) {
 });
 
 passport.use(new LocalStrategy(
+
     function(username, password, done) {
 
         db.User.findOne({ where: {username: username, password: password }}).then(function(dbUser) {
@@ -59,11 +60,13 @@ passport.use(new LocalStrategy(
         // });
     }));
 
+
 passport.serializeUser(function(user, done) {
     done(null, user.id);
 });
 
 passport.deserializeUser(function(id, done) {
+
     db.User.findOne({ where: {id: id }}).then(function(dbUser) {
         done(null, dbUser.dataValues);
 
@@ -72,6 +75,7 @@ passport.deserializeUser(function(id, done) {
     // User.getUserById(id, function(err, user) {
     //   done(err, user);
     // });
+
 });
 
 // passport.deserializeUser(function(id, done) {
@@ -82,47 +86,49 @@ passport.deserializeUser(function(id, done) {
 
 // Register User
 
-router.post('/register', function(req, res) {
+router.post('/register', function(req, res){
 
-    var last_name = req.body.last_name;
-    var first_name = req.body.first_name;
-    var email = req.body.email;
-    var username = req.body.username;
-    var password = req.body.password;
-    var password2 = req.body.password2;
+	var last_name = req.body.last_name;
+	var first_name = req.body.first_name;
+	var email = req.body.email;
+	var username = req.body.username;
+	var password = req.body.password;
+	var password2 = req.body.password2;
 
-    // Validation
-    // TODO:  Do not allow a username to be used more than once
-    req.checkBody('last_name', 'Last Name is required').notEmpty();
-    req.checkBody('first_name', 'First Name is required').notEmpty();
-    req.checkBody('email', 'Email is required').isEmail();
-    req.checkBody('username', 'Username is required').notEmpty();
-    req.checkBody('password', 'Password is required').notEmpty();
-    req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
+	// Validation
+	// TODO:  Do not allow a username to be used more than once
+	req.checkBody('last_name', 'Last Name is required').notEmpty();
+	req.checkBody('first_name', 'First Name is required').notEmpty();
+	req.checkBody('email', 'Email is required').isEmail();
+	req.checkBody('username', 'Username is required').notEmpty();
+	req.checkBody('password', 'Password is required').notEmpty();
+	req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
 
-    var errors = req.validationErrors();
-    if (errors) {
-        res.render('register', {
-            errors: errors
-        })
-    } else {
-
-
-        // Add the person to the database
-        db.User.create({
-            firstname: req.body.first_name,
-            lastname: req.body.last_name,
-            username: req.body.username,
-            email: req.body.email,
-            password: req.body.password
-        });
+	var errors = req.validationErrors();
+	if(errors) {
+		res.render('register', {
+			errors: errors
+		})
+	}
+	else {
 
 
-        // TODO:  Fix this flash message
-        req.flash('success_msg', 'You are registered and can now login');
+		// Add the person to the database
+		db.User.create({
+			firstname: req.body.first_name,
+    		lastname: req.body.last_name,
+    		username: req.body.username,
+   			email: req.body.email,
+    		password: req.body.password
+		});
 
-        res.redirect('/users/login');
-    }
+
+		 // TODO:  Fix this flash message
+		req.flash('success_msg', 'You are registered and can now login');
+
+		res.redirect('/users/login');
+	}
+
 });
 
 
