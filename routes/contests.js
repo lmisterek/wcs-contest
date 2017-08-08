@@ -100,7 +100,10 @@ router.get("/results/:round/:division/:role", function(req, res) {
     	include: [
     		{model: db.Participant}
     	]
-    }).then((scores) => {
+    }).then((data) => {
+    	
+    	// select the data for which participated in the given role
+    	var scores = getRole(data, role);
     	
     	// get participants
     	var participants = getParticipantScores(scores);
@@ -170,6 +173,16 @@ function getParticipantScores(scores) {
   		} // End of loop
 
   		return participants;
+}
+
+function getRole (data, role) {
+	var scores = [];
+	for (var i = 0; i < data.length; i++) {
+		if(data[i].Participant.role == role) {
+			scores.push(data[i]);
+		}
+	}
+	return scores;
 }
 
 
