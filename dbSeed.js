@@ -6,7 +6,7 @@ var mysql = require('mysql');
 var squel = require('squel');
 
 // Use novice participants
-const dancers = require("./sql/participantSeeds/novice");
+const dancers = require("./sql/participantSeeds/champion");
 //insertParticipants("participants", dancers.Novice);
 
 
@@ -22,12 +22,9 @@ var connection = mysql.createConnection({
 });
 
 connection.connect();
-
-	
-
 	var sql = squel.insert()
 				.into("Participants")
-				.setFieldsRows(dancers.Novice).toString();
+				.setFieldsRows(dancers.Champion).toString();
 
 				console.log(sql);
 
