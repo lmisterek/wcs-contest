@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
 
     Score.associate = function(models) {
     // Associating Participant with Scores
-    Score.belongsTo(models.Participant, {foreignKey: 'bib_number', targetKey: "bib_number"});
+    Score.belongsTo(models.Participant, {foreignKey: 'bib_number'});
    };
     
     
