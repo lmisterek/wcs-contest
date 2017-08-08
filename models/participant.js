@@ -14,7 +14,7 @@ module.exports = function(sequelize, DataTypes) {
 
   Participant.associate = function(models) {
     // Associating Participant with Scores
-    Participant.hasMany(models.Score, {foreignKey: 'bib_number'});
+    Participant.hasMany(models.Score, {targetKey: 'bib_number'});
   };
 
 
