@@ -6,7 +6,7 @@ var mysql = require('mysql');
 var squel = require('squel');
 
 // Use novice participants
-const dancers = require("./sql/novice.js");
+const dancers = require("./sql/participantSeeds/champion");
 //insertParticipants("participants", dancers.Novice);
 
 
@@ -23,9 +23,11 @@ var connection = mysql.createConnection({
 
 connection.connect();
 
+	
+
 	var sql = squel.insert()
 				.into("participants")
-				.setFieldsRows(dancers.Novice).toString();
+				.setFieldsRows(dancers.Champion).toString();
 
 				console.log(sql);
 
@@ -33,8 +35,6 @@ connection.connect();
   		if(err) throw err;
   });
 
-
-//insertParticipants(table, participants)
 
 // set port
 app.set('port', (process.env.PORT || 3000));
@@ -44,19 +44,5 @@ app.listen(app.get('port'), function() {
 });
 
 
-//*********************  FUNCTIONS ***********************************************************//
 
-function insertParticipants(table, array) {
-	// var sql = squel.insert()
-	// 			.into(table)
-	// 			.setFieldsRows(array).toString();
-
-	// 			console.log(sql);
-
-	//   	connection.query(sql, function(err, res) {
- //  		if(err) throw err;
-  		
-  	// });
-
-}
 
