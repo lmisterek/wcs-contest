@@ -25,9 +25,7 @@ connection.connect();
 	var sql = squel.insert()
 				.into("Participants")
 				.setFieldsRows(dancers.Champion).toString();
-
 				console.log(sql);
-
 	  	connection.query(sql, function(err, res) {
   		if(err) throw err;
   });
