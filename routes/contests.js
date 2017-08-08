@@ -30,7 +30,6 @@ router.get("/judge/:round/:division/:role", ensureAuthenticated, function(req, r
     			judge: judge.id,
     			division: division,
     			round: round,
-    			role: role
     		}
     	}).then((results) => {
    

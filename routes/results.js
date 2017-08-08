@@ -25,15 +25,6 @@ router.get("/results/:round/:division/:role", function(req, res) {
   			console.log(results);
   		});
   	
-  	// db.Participant.findAll({
-	  //           where: {
-	  //               role: role,
-	  //               division: division
-	  //           }
-		 //        }).then((results) => {
-		 //            res.render('prelim', { division: division, role: role, list: results, round: round });
-
-		 //        });
 
   	Contest.joinTablesByDiv(table1, table2, division, function(err, scores) {
 
