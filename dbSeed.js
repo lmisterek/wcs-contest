@@ -6,7 +6,7 @@ var mysql = require('mysql');
 var squel = require('squel');
 
 // Use novice participants
-const dancers = require("./sql/participantSeeds/champion");
+const dancers = require("./sql/participantSeeds/novice");
 //insertParticipants("participants", dancers.Novice);
 
 
@@ -15,10 +15,10 @@ var app = express();
 
 
 var connection = mysql.createConnection({
-  host     : '127.0.0.1',
-  user     : 'root',
-  password : '',
-  database : 'contest'
+  host     : 'h40lg7qyub2umdvb.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+  user     : 'ce109fk4twy15rel',
+  password : 'iw3wmp6ptxfttwzu',
+  database : 'q7h2gsg984mysc3j'
 });
 
 connection.connect();
@@ -26,8 +26,8 @@ connection.connect();
 	
 
 	var sql = squel.insert()
-				.into("participants")
-				.setFieldsRows(dancers.Champion).toString();
+				.into("Participants")
+				.setFieldsRows(dancers.Novice).toString();
 
 				console.log(sql);
 
