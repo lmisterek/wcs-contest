@@ -4,7 +4,8 @@ module.exports = function(sequelize, DataTypes) {
   var Participant = sequelize.define('Participant', {
     bib_number: {
       type:  DataTypes.STRING,
-      primaryKey: true
+      primaryKey: true,
+      underscored: true
     },
     lastname: DataTypes.STRING,
     firstname: DataTypes.STRING,
