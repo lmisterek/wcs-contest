@@ -34,7 +34,6 @@
     "express-messages": "^1.0.1",
     "express-session": "^1.15.3",
     "express-validator": "^3.2.1",
-    "is-bluebird": "^1.0.2",
     "jquery": "^3.2.1",
     "mongodb": "^2.2.30",
     "mongoose": "^4.11.2",
