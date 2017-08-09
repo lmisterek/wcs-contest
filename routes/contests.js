@@ -129,10 +129,6 @@ function findIndex(array, value) {
         	if(object[key]==value)
         	return i;
         }
-
-        // if (index > -1) {
-        //     return i;
-        // }
     }
     return -1;
 }
