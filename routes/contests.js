@@ -91,6 +91,10 @@ router.get("/results/:round/:division/:role", function(req, res) {
     let round = req.params.round;
     let division = req.params.division;
     let role = req.params.role;
+
+    // Capitalize Division and Role
+    let Division = division.charAt(0).toUpperCase() + division.slice(1);
+    let Role = role.charAt(0).toUpperCase() + role.slice(1);
     
     db.Score.findAll({
     	where: {
@@ -111,7 +115,7 @@ router.get("/results/:round/:division/:role", function(req, res) {
   		// Order participants by Total
   		participants = orderObjByKey(participants, "total");
 
-  		res.render('prelimResults', {division: division, role: role, scores: participants, round: round});
+  		res.render('prelimResults', {division: Division, role: Role, scores: participants, round: round});
 
     });
 
