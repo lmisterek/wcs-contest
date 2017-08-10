@@ -19,9 +19,9 @@
 	<div class="container">
       <div class="header clearfix">
         <nav>
-          <ul class="nav nav-pills pull-right">
+          <ul class="nav nav-pills pull-right teal">
             {{#if user}}
-            <li role="presentation"><a href="/"><span class="glyphicon glyphicon-globe"></span> Dashboard</a></li>
+            <li role="presentation" class="teal"><a class="teal" href="/"><span class="teal glyphicon glyphicon-globe"></span> Dashboard</a></li>
             <li role="presentation"><a href="/users/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
             {{else}}
             <li role="presentation"><a href="/users/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -53,10 +53,13 @@
 
 
 
-      <footer class="footer">
-        <p>&copy; 2017 JnJApp, Inc.</p>
-      </footer>
+
 
     </div> <!-- /container -->
+
+
 </body>
+          <footer class="footer">
+        <p>&copy; 2017 JnJApp, Inc.</p>
+      </footer>
 </html>

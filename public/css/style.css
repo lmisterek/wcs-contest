@@ -8,6 +8,8 @@
 
 /* Space out content a bit */
 body {
+    background-color: #f2f2e1;
+
   padding-top: 20px;
   padding-bottom: 20px;
 }
@@ -63,10 +65,18 @@ body {
 }
 
 /* Main marketing message and sign up button */
+
 .jumbotron {
+/*    background: URL("../images/tealTexture.jpeg") no-repeat center center fixed;*/
+    -webkit-background-size: cover;
+    background-position: 0% 65%;
+    text-align: center;
+    border-bottom: 1px solid #e5e5e5;
+}
+/*.jumbotron {
   text-align: center;
   border-bottom: 1px solid #e5e5e5;
-}
+}*/
 .jumbotron .btn {
   padding: 14px 24px;
   font-size: 21px;
@@ -99,16 +109,20 @@ body {
   }
 }
 
+
+
 .page-header {
   margin-top:0;
 }
 
 footer {
   margin-top: 40px;
+  background-color: #c19a6b;
 }
 
 ul  {
     list-style: none;
+    color:  #008080;
 }
 
 side-nav-links li {
@@ -117,4 +131,21 @@ side-nav-links li {
 
 #ex1Slider .slider-selection {
   background: #BABABA;
+}
+
+a {
+    color:  #008080;
+}
+
+ .panel panel-primary {
+    color:  #008080;
+}
+
+.panel-primary {
+    border-color: #008080;
+    
+}
+
+.panel-primary > .panel-heading  {
+  background-color:  #008080;
 }
