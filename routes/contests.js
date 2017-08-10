@@ -16,6 +16,10 @@ router.get("/judge/:round/:division/:role", ensureAuthenticated, function(req, r
     var round = req.params.round;
     var role = req.params.role;
 
+    // Capitalize Division and Role
+    let Division = division.charAt(0).toUpperCase() + division.slice(1);
+    let Role = role.charAt(0).toUpperCase() + role.slice(1);
+
 
     // Check route paramaters, If the route is bad, then re-direct to dashboard
     if (badRoute(convention, round, division, role)) {
@@ -42,7 +46,7 @@ router.get("/judge/:round/:division/:role", ensureAuthenticated, function(req, r
 	                division: division
 	            }
 		        }).then((results) => {
-		            res.render('prelim', { division: division, role: role, list: results, round: round });
+		            res.render('prelim', { division: Division, role: Role, list: results, round: round });
 
 		        });
     		}
