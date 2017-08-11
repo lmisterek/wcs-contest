@@ -17,10 +17,10 @@ router.get('/login', function(req, res) {
 });
 
 router.post('/login',
-    passport.authenticate('local', { successRedirect: '/', failureRedirect: '/users/login', failureFlash: true }),
-    function(req, res) {
-        res.redirect('/');
-    }
+    passport.authenticate('local', { successRedirect: '/', failureRedirect: '/users/login', failureFlash: 'Invalid uername or password' })
+    // function(req, res) {
+    //     res.redirect('/');
+    // }
 );
 
 router.get('/logout', function(req, res) {

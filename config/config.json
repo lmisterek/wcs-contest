@@ -1,9 +1,9 @@
 {
-  "development": {
+     "development": {
     "username": "root",
-    "password": null,
+    "password": "steel61sql",
     "database": "contest",
-    "host": "127.0.0.1",
+    "host": "localhost",
     "dialect": "mysql"
   },
   "test": {
