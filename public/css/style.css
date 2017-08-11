@@ -145,8 +145,14 @@ a {
     color:  #008080;
 }
 
-.panel-primary {
+.panel-primary .btn-primary{
     border-color: #008080;
+    
+}
+
+.btn-primary {
+    border-color: #008080;
+    background-color: #008080;
     
 }
 
@@ -156,5 +162,9 @@ a {
 
 .slider-handle {
   background:  #008080;
+}
+
+.panel-primary {
+    border-color: #008080;
 }
 
