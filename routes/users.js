@@ -38,15 +38,31 @@ passport.use(new LocalStrategy(
 
 
     	// Search the database for the given user
-        db.User.findOne({ where: {username: username, password: password }}).then(function(dbUser) {
+        // db.User.findOne({ where: {username: username, password: password }}).then(function(dbUser) {
+        db.User.findOne({ where: {username: username}}).then(function(dbUser) {
         	
         	// If the user is not in the database, send a message to let the user know
         	if(!dbUser) {
         		return done(null, false, {message: 'Unknown User'});
         	}
 
-        	//
-            return done(null, dbUser);
+        	// Check for password with hash
+        	console.log(dbUser);
+        	comparePassword(password, dbUser.password, function(err, isMatch) {
+        		if(err) throw err;
+
+        		// if the hash matches the password, return the user
+        		// Otherwise, return the message: "Invalid Password"
+        		if(isMatch) {
+        			return done(null, dbUser);
+        		}
+        		else {
+        			return done(null, false, {message: 'Invalid Password'});
+        		}
+        	});
+        	
+        	// //
+         //    return done(null, dbUser);
         });
 
         // 
@@ -130,25 +146,35 @@ router.post('/register', function(req, res){
 
 module.exports = router;
 
-createUser = function (last, first, email, username, password) {
-	const saltRounds = 10;
 
-	
+// This function takes in user information and adds the user to the database
+// with a hash for the password
+createUser = function (last, first, email, username, password) {
+	const saltRounds = 10;	
 	bcrypt.genSalt(saltRounds, function(err, salt) {
 		if (err) throw err;
 		bcrypt.hash(password, salt, function (err, hash) {
-			
 			db.User.create({
 			firstname: first,
     		lastname: last,
     		username: username,
    			email: email,
-    		password: hash
+    		password: hash.toString()
 		});
 		});
 
 	});
+}
 
+comparePassword = function(candidatePassword, hash, callback) {
+    bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
+        console.log(candidatePassword);
+        console.log(hash);
 
+        if (err) throw err;
 
+        console.log(isMatch);
+        callback(null, isMatch);
+        // res == true 
+    });
 }
