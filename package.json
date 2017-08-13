@@ -44,6 +44,7 @@
     "passport": "^0.3.2",
     "passport-http": "^0.3.0",
     "passport-local": "^1.0.0",
+    "password-generator": "^2.1.0",
     "redi": "^0.1.0",
     "redis": "^2.7.1",
     "sequelize": "^4.4.2",

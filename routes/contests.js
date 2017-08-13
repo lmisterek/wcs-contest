@@ -208,7 +208,6 @@ function badRoute(object, param1, param2, param3) {
     if (object.contests.indexOf(param1) == (-1) ||
         object.divisions.indexOf(param2) == (-1) ||
         object.roles.indexOf(param3) == (-1)) {
-        console.log("one is bad");
         return true;
     } else
         return false;

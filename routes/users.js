@@ -19,6 +19,8 @@ router.get('/login', function(req, res) {
     res.render('login');
 });
 
+// If the user enters the correct password, they will be directed to the dashboard
+// Otherwise, a message will flash saying that the password is incorrect
 router.post('/login',
     passport.authenticate('local', { successRedirect: '/', failureRedirect: '/users/login', failureFlash: true }),
     function(req, res) {
@@ -36,7 +38,6 @@ passport.use(new LocalStrategy(
 
     function(username, password, done) {
 
-
     	// Search the database for the given user
         // db.User.findOne({ where: {username: username, password: password }}).then(function(dbUser) {
         db.User.findOne({ where: {username: username}}).then(function(dbUser) {
@@ -46,8 +47,8 @@ passport.use(new LocalStrategy(
         		return done(null, false, {message: 'Unknown User'});
         	}
 
-        	// Check for password with hash
-        	console.log(dbUser);
+        	// Check the password against the hashed password in the database
+        	// This function is located at the bottom of this file
         	comparePassword(password, dbUser.password, function(err, isMatch) {
         		if(err) throw err;
 
@@ -60,23 +61,7 @@ passport.use(new LocalStrategy(
         			return done(null, false, {message: 'Invalid Password'});
         		}
         	});
-        	
-        	// //
-         //    return done(null, dbUser);
         });
-
-        // 
-        // db.User.comparePassword(password, user.pass_word, function(err, isMatch) {
-        // 	if(err) throw err;
-
-        // 	if(isMatch) {
-        // 		return done(null, user);
-        // 	} else {
-        // 		return done(null, false, {message: 'Invalid Password'});
-        // 	}
-        // });
-
-        // });
     }));
 
 
@@ -91,19 +76,7 @@ passport.deserializeUser(function(id, done) {
 
     });
 
-    // User.getUserById(id, function(err, user) {
-    //   done(err, user);
-    // });
-
 });
-
-// passport.deserializeUser(function(id, done) {
-//   User.getUserById(id, function(err, user) {
-//     done(err, user);
-//   });
-// });
-
-// Register User
 
 router.post('/register', function(req, res){
 
@@ -165,17 +138,15 @@ createUser = function (last, first, email, username, password) {
 
 	});
 }
-//test
 
+
+// This function compares the user's entered password with the hashed password
+// in the database  
+// The callback function returns a true or false statement if the the passwords
+// match
 comparePassword = function(candidatePassword, hash, callback) {
     bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
-        console.log(candidatePassword);
-        console.log(hash);
-
         if (err) throw err;
-
-        console.log(isMatch);
         callback(null, isMatch);
-        // res == true 
     });
 }
