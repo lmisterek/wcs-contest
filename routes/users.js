@@ -165,6 +165,7 @@ createUser = function (last, first, email, username, password) {
 
 	});
 }
+//test
 
 comparePassword = function(candidatePassword, hash, callback) {
     bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
