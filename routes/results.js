@@ -4,8 +4,8 @@ var passport = require('passport');
 var db = require('../models');
 
 
-var Contest = require('../modelsOld/contest');
-var convention = require('../config/dcsData.js');
+// var Contest = require('../modelsOld/contest');
+// var convention = require('../config/dcsData.js');
 
 
 

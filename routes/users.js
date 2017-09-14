@@ -3,12 +3,9 @@ var router = express.Router();
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcryptjs');
-
-
-
 // Requiring our Todo model
-var db = require("../models");
-
+// var db = require("../models");
+var User = require("../models/User.js");
 // Register
 router.get('/register', function(req, res) {
     res.render('register');
@@ -22,7 +19,7 @@ router.get('/login', function(req, res) {
 // If the user enters the correct password, they will be directed to the dashboard
 // Otherwise, a message will flash saying that the password is incorrect
 router.post('/login',
-    passport.authenticate('local', { successRedirect: '/', failureRedirect: '/users/login', failureFlash: true }),
+    // passport.authenticate('local', { successRedirect: '/', failureRedirect: '/users/login', failureFlash: true }),
     function(req, res) {
         res.redirect('/');
     }
@@ -40,41 +37,67 @@ passport.use(new LocalStrategy(
 
     	// Search the database for the given user
         // db.User.findOne({ where: {username: username, password: password }}).then(function(dbUser) {
-        db.User.findOne({ where: {username: username}}).then(function(dbUser) {
-        	
-        	// If the user is not in the database, send a message to let the user know
-        	if(!dbUser) {
-        		return done(null, false, {message: 'Unknown User'});
-        	}
+        User.find({ "username": username }, function(error, doc) {
+            if (error) {
+                console.log(error);
+            }
+            else {
+                console.log('doc pass', doc[0].password);
+                // return res.render("index", { bacon: doc });
+                comparePassword(password, doc[0].password, function(err, isMatch) {
+                if(err) throw err;
 
-        	// Check the password against the hashed password in the database
-        	// This function is located at the bottom of this file
-        	comparePassword(password, dbUser.password, function(err, isMatch) {
-        		if(err) throw err;
-
-        		// if the hash matches the password, return the user
-        		// Otherwise, return the message: "Invalid Password"
-        		if(isMatch) {
-        			return done(null, dbUser);
-        		}
-        		else {
-        			return done(null, false, {message: 'Invalid Password'});
-        		}
-        	});
+                // if the hash matches the password, return the user
+                // Otherwise, return the message: "Invalid Password"
+                    if(isMatch) {
+                        return done(null, doc[0]);
+                        }
+                    else {
+                        return done(null, false, {message: 'Invalid Password'});
+                        }
+                });
+            }
         });
+
+        // db.User.findOne({ where: {username: username}}).then(function(dbUser) {
+        	
+        // 	// If the user is not in the database, send a message to let the user know
+        // 	if(!dbUser) {
+        // 		return done(null, false, {message: 'Unknown User'});
+        // 	}
+
+        // 	// Check the password against the hashed password in the database
+        // 	// This function is located at the bottom of this file
+        // 	comparePassword(password, dbUser.password, function(err, isMatch) {
+        // 		if(err) throw err;
+
+        // 		// if the hash matches the password, return the user
+        // 		// Otherwise, return the message: "Invalid Password"
+        // 		if(isMatch) {
+        // 			return done(null, dbUser);
+        // 		}
+        // 		else {
+        // 			return done(null, false, {message: 'Invalid Password'});
+        // 		}
+        // 	});
+        // });
     }));
 
 
 passport.serializeUser(function(user, done) {
-    done(null, user.id);
+    done(null, user._id);
 });
 
 passport.deserializeUser(function(id, done) {
 
-    db.User.findOne({ where: {id: id }}).then(function(dbUser) {
-        done(null, dbUser.dataValues);
-
+    User.find({ "_id": id }, function(error, doc) {
+        console.log('de-s', doc);
     });
+
+    // db.User.findOne({ where: {id: id }}).then(function(dbUser) {
+    //     done(null, dbUser.dataValues);
+
+    // });
 
 });
 
@@ -127,13 +150,32 @@ createUser = function (last, first, email, username, password) {
 	bcrypt.genSalt(saltRounds, function(err, salt) {
 		if (err) throw err;
 		bcrypt.hash(password, salt, function (err, hash) {
-			db.User.create({
-			firstname: first,
-    		lastname: last,
-    		username: username,
-   			email: email,
-    		password: hash.toString()
-		});
+                        			// db.User.create({
+                        			// firstname: first,
+                           //  		lastname: last,
+                           //  		username: username,
+                           // 			email: email,
+                           //  		password: hash.toString()
+                        		 //      });
+                    var newUser = new User({
+                          firstname: first,
+                          lastname: last,
+                          username: username,
+                          email: email,
+                          password: hash.toString()
+                        });
+                        // Using the save method in mongoose, we create our example library in the db
+                        newUser.save(function(error, doc) {
+                          // Log any errors
+                          if (error) {
+                            console.log(error);
+                          }
+                          // Or log the doc
+                          else {
+                            console.log(doc);
+                          }
+                        });
+
 		});
 
 	});
