@@ -18,6 +18,9 @@ var ScoreSchema = new Schema({
   score: {
     type: Number
   },
+  role: {
+    type: String
+  }
 });
 
 var Score = mongoose.model("Score", ScoreSchema);

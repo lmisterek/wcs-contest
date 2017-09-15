@@ -11,13 +11,14 @@ var convention = require('../config/dcsData.js');
 
 // This route creates prelim and semi-finals judge sheets
 
-// router.get("/judge/:round/:division/:role", ensureAuthenticated, function(req, res) {
-router.get("/judge/:round/:division/:role", function(req, res) {
+router.get("/judge/:round/:division/:role", ensureAuthenticated, function(req, res) {
+// router.get("/judge/:round/:division/:role", function(req, res) {
 
-    // var judge = res.locals.user;
-
-    var judge = "ff";
+    var judge = res.locals.user;
     console.log('judge', judge);
+
+    // var judge = "ff";
+    console.log('judge id', judge[0]._id);
     var division = req.params.division;
     var round = req.params.round;
     var role = req.params.role;
@@ -36,15 +37,18 @@ router.get("/judge/:round/:division/:role", function(req, res) {
 
         // Check to see if the judge has judged this competition
         Score.find({
-            judge: judge,
+            judge: judge[0]._id,
             division: division,
-            round: round
+            round: round,
+            role: role
         }).exec(function(err, doc) {
             if (err) {
+                console.log('score err:');
                 console.log(err);
             } else {
-                console.log(doc)
-                if (doc.length == 0) {
+                console.log('doc length:', doc.length)
+                console.log('doc[0]', doc);
+                if (doc.length === 0) {
                     Participant.find({
                         role: role,
                         division: division
@@ -94,12 +98,12 @@ router.get("/judge/:round/:division/:role", function(req, res) {
 // This route posts the results from the judge sheets and then redirects to the dashboard
 router.post("/:round/:division/:role", function(req, res) {
 
-    // var judge = res.locals.user;
+    var judge = res.locals.user;
     // console.log("judge   " + judge.username);
     var scores = req.body;
-    var division = req.params.division;
+    var division = req.params.division.toLowerCase();
     var round = req.params.round;
-    var role = req.params.role;
+    var role = req.params.role.toLowerCase();
 
     for (let key in req.body) {
         let score = req.body[key];
@@ -109,8 +113,9 @@ router.post("/:round/:division/:role", function(req, res) {
             bib_number: bib_number,
             division: division,
             round: round,
-            judge: 'ff',
-            score: score
+            judge: judge[0]._id,
+            score: score,
+            role: role
         });
         newScore.save(function(error, doc) {
                  if (error) {
