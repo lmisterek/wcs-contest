@@ -19,7 +19,7 @@ router.get('/login', function(req, res) {
 // If the user enters the correct password, they will be directed to the dashboard
 // Otherwise, a message will flash saying that the password is incorrect
 router.post('/login',
-    // passport.authenticate('local', { successRedirect: '/', failureRedirect: '/users/login', failureFlash: true }),
+    passport.authenticate('local', { successRedirect: '/', failureRedirect: '/users/login', failureFlash: true }),
     function(req, res) {
         res.redirect('/');
     }
@@ -50,9 +50,11 @@ passport.use(new LocalStrategy(
                 // if the hash matches the password, return the user
                 // Otherwise, return the message: "Invalid Password"
                     if(isMatch) {
+                        console.log('isMatch');
                         return done(null, doc[0]);
                         }
                     else {
+                        console.log('else  isMatch');
                         return done(null, false, {message: 'Invalid Password'});
                         }
                 });
@@ -85,17 +87,18 @@ passport.use(new LocalStrategy(
 
 
 passport.serializeUser(function(user, done) {
-    done(null, user._id);
+    console.log('serial');
+    done(null, user);
 });
 
 passport.deserializeUser(function(id, done) {
 
     User.find({ "_id": id }, function(error, doc) {
         console.log('de-s', doc);
+        done(null, doc);
     });
-
     // db.User.findOne({ where: {id: id }}).then(function(dbUser) {
-    //     done(null, dbUser.dataValues);
+        // done(null, dbUser.dataValues);
 
     // });
 
