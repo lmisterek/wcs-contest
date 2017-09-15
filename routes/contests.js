@@ -12,7 +12,7 @@ var convention = require('../config/dcsData.js');
 // This route creates prelim and semi-finals judge sheets
 
 router.get("/judge/:round/:division/:role", ensureAuthenticated, function(req, res) {
-// router.get("/judge/:round/:division/:role", function(req, res) {
+    // router.get("/judge/:round/:division/:role", function(req, res) {
 
     var judge = res.locals.user;
     console.log('judge', judge);
@@ -118,15 +118,23 @@ router.post("/:round/:division/:role", function(req, res) {
             role: role
         });
         newScore.save(function(error, doc) {
-                 if (error) {
-                    console.log(error);
-                 }
-                 else {
-                    console.log('score saved');
-                 }
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('score saved');
+                Participant.findOneAndUpdate({ "bib_number": bib_number }, { $push: { "scores": doc._id } })
+                    .exec(function(err, doc) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            // res.json(doc);
+                            console.log('participant score updated');
+                        }
+                    });
+            }
         });
-   
-    
+
+
         // db.Score.create({
         //     bib_number: bib_number,
         //     division: division,
@@ -142,7 +150,6 @@ router.post("/:round/:division/:role", function(req, res) {
     res.redirect("/");
 });
 
-//James took this route from results.js in the routes directory
 router.get("/results/:round/:division/:role", function(req, res) {
 
     let round = req.params.round;
@@ -154,40 +161,49 @@ router.get("/results/:round/:division/:role", function(req, res) {
     let Role = role.charAt(0).toUpperCase() + role.slice(1);
 
 
-    // Score.find({round: round, division: division}).exec(function(err, doc) {
-    //                     if (err) {
-    //                         console.log(err);
-    //                     } else {
-    //                         console.log('doc', doc);
+    // Score.find({ round: round, division: division, role: role }).exec(function(err, doc) {
+    //     if (err) {
+    //         console.log(err);
+    //     } else {
+    //         console.log('doc', doc);;
+    //     }
+    // });
 
 
-    //                     }
-    //                 });
-
-
-
-    db.Score.findAll({
-        where: {
-            round: round,
-            division: division
-        },
-        include: [
-            { model: db.Participant }
-        ]
-    }).then((data) => {
-
-        // select the data for which participated in the given role
-        var scores = getRole(data, role);
-
-        // get participants
-        var participants = getParticipantScores(scores);
-
-        // Order participants by Total
-        participants = orderObjByKey(participants, "total");
-
-        res.render('prelimResults', { division: Division, role: Role, scores: participants, round: round });
-
+//Associates the Participant and Score models to get scores that can be rendered to results page
+    Participant.find({ division: division, role: role }).populate("scores").exec(function(err, partDoc) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('bib_number', partDoc[0].bib_number, partDoc[0].scores[0].bib_number)
+            console.log('score', partDoc[0].scores[0].score);
+        }
     });
+
+
+
+    // db.Score.findAll({
+    //     where: {
+    //         round: round,
+    //         division: division
+    //     },
+    //     include: [
+    //         { model: db.Participant }
+    //     ]
+    // }).then((data) => {
+
+    //     // select the data for which participated in the given role
+    //     var scores = getRole(data, role);
+
+    //     // get participants
+    //     var participants = getParticipantScores(scores);
+
+    //     // Order participants by Total
+    //     participants = orderObjByKey(participants, "total");
+
+    //     res.render('prelimResults', { division: Division, role: Role, scores: participants, round: round });
+
+    // });
 
 
 
