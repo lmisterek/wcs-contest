@@ -15,7 +15,6 @@ function ensureAuthenticated(req, res, next) {
 	if(req.isAuthenticated()) {
 		return next();
 	} else {
-		console.log('not ensured');
 		res.redirect('/users/login'); 
 	}
 }

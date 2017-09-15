@@ -87,14 +87,12 @@ passport.use(new LocalStrategy(
 
 
 passport.serializeUser(function(user, done) {
-    console.log('serial');
     done(null, user);
 });
 
 passport.deserializeUser(function(id, done) {
 
     User.find({ "_id": id }, function(error, doc) {
-        console.log('de-s', doc);
         done(null, doc);
     });
     // db.User.findOne({ where: {id: id }}).then(function(dbUser) {

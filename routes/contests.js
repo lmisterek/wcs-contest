@@ -175,8 +175,17 @@ router.get("/results/:round/:division/:role", function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            console.log('bib_number', partDoc[0].bib_number, partDoc[0].scores[0].bib_number)
-            console.log('score', partDoc[0].scores[0].score);
+            // console.log('bib_number', partDoc[0].bib_number, partDoc[0].scores[0].bib_number)
+            // console.log('score', partDoc[0].scores[0].score);
+            // console.log('partDoc', partDoc[0]);
+            let results = partDoc.map(ArrangeMongooseData);
+
+
+            console.log('results', results);
+            res.render('prelimResults', { division: Division, role: Role, scores: results, round: round });
+
+
+
         }
     });
 
@@ -209,6 +218,38 @@ router.get("/results/:round/:division/:role", function(req, res) {
 
 
 });
+
+function ArrangeMongooseData(partDoc, index) {
+    // console.log('AMD', JSON.stringify(partDoc.scores, null, 2));
+    // console.log('index', index); 
+
+    let scoresArray = [];
+    for(i = 0; i < partDoc.scores.length; i++){
+        // console.log("--", partDoc.scores[i].score);
+        scoresArray.push(partDoc.scores[i].score);
+    }   
+    var dancer = {
+        bib_number: partDoc.bib_number,
+        name: partDoc.firstname + " " + partDoc.lastname,
+        total: partDoc.scores.reduce(getTotal, 0),
+        judge1: scoresArray[0],
+        judge2: scoresArray[1],
+        judge3: scoresArray[2]
+    }
+
+
+    return dancer;
+}
+
+function getTotal(total, scores) {
+    return total + scores.score;
+}
+
+
+
+
+
+
 
 // Search through an array of objects and find the index of the value
 function findIndex(array, value) {
