@@ -14,9 +14,9 @@ var port = process.env.PORT || 3000;
 
 mongoose.Promise = Promise;
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var contests = require('./routes/contests');
+var controllers = require('./controllers');
+var users = require('./controllers/users');
+var contests = require('./controllers/contests');
 
 // Init App
 var app = express();
@@ -76,7 +76,7 @@ app.use(function (req, res, next) {
 	next();
 })
 
-app.use('/', routes);
+app.use('/', controllers);
 app.use('/users', users);
 app.use('/contests', contests);
 
