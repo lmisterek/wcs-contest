@@ -179,17 +179,11 @@ router.get("/results/:round/:division/:role", function(req, res) {
             // console.log('score', partDoc[0].scores[0].score);
             // console.log('partDoc', partDoc[0]);
             let results = partDoc.map(ArrangeMongooseData);
-
-
             console.log('results', results);
+            
             res.render('prelimResults', { division: Division, role: Role, scores: results, round: round });
-
-
-
         }
     });
-
-
 
     // db.Score.findAll({
     //     where: {
@@ -214,20 +208,14 @@ router.get("/results/:round/:division/:role", function(req, res) {
 
     // });
 
-
-
-
 });
 
 function ArrangeMongooseData(partDoc, index) {
-    // console.log('AMD', JSON.stringify(partDoc.scores, null, 2));
-    // console.log('index', index); 
+    // console.log('AMD', JSON.stringify(partDoc.scores, null, 2)); 
+    let scoresArray = partDoc.scores.map(function(array){
+        return array.score
+    });
 
-    let scoresArray = [];
-    for(i = 0; i < partDoc.scores.length; i++){
-        // console.log("--", partDoc.scores[i].score);
-        scoresArray.push(partDoc.scores[i].score);
-    }   
     var dancer = {
         bib_number: partDoc.bib_number,
         name: partDoc.firstname + " " + partDoc.lastname,
@@ -236,8 +224,6 @@ function ArrangeMongooseData(partDoc, index) {
         judge2: scoresArray[1],
         judge3: scoresArray[2]
     }
-
-
     return dancer;
 }
 
