@@ -68,31 +68,6 @@ router.get("/judge/:round/:division/:role", ensureAuthenticated, function(req, r
             }
         });
 
-        // db.Score.findAll({
-        //  where: {
-        //      judge: judge.id,
-        //      division: division,
-        //      round: round,
-        //  }
-        // }).then((results) => {
-
-        //  if(results.length == 0) {
-
-        //      //Get all the participants
-        //      db.Participant.findAll({
-        //         where: {
-        //             role: role,
-        //             division: division
-        //         }
-        //      }).then((results) => {
-        //          res.render('prelim', { division: Division, role: Role, list: results, round: round });
-
-        //      });
-        //  }
-        //  else {
-        //      res.redirect('/');
-        //  }
-        // });
 
     }
 });
@@ -138,15 +113,6 @@ router.post("/:round/:division/:role", function(req, res) {
         });
 
 
-        // db.Score.create({
-        //     bib_number: bib_number,
-        //     division: division,
-        //     round: round,
-        //     judge: judge.id,
-        //     score: score
-        // }).then(() => {
-        //     console.log('created Scores');
-        // });
     }
     // insert data into database
     // Contest.addScores(scores, round, division, judgeId);
@@ -164,13 +130,6 @@ router.get("/results/:round/:division/:role", function(req, res) {
     let Role = role.charAt(0).toUpperCase() + role.slice(1);
 
 
-    // Score.find({ round: round, division: division, role: role }).exec(function(err, doc) {
-    //     if (err) {
-    //         console.log(err);
-    //     } else {
-    //         console.log('doc', doc);;
-    //     }
-    // });
 
 
 //Associates the Participant and Score models to get scores that can be rendered to results page
