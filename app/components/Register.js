@@ -36,7 +36,7 @@ var Register = React.createClass({
         return (
 
             <form method="post" action='/users/register'>
-                <div className='form-group input-text-color' id='lastName'>
+                <div className='form-group' id='lastName' style={style}>
                     <label>Last Name
                     </label>
                     <input

@@ -8,10 +8,16 @@
 
 /* Space out content a bit */
 body {
-    background-color: #f2f2e1;
+  background: url("./wood.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  color: #ccc;
+}
 
-  padding-top: 20px;
-  padding-bottom: 20px;
+.navbar-default {
+  background-image: linear-gradient(to bottom,#1424E4 0,#222 100%);
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
