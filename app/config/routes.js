@@ -9,7 +9,7 @@ import Register from '../components/Register';
 const Routes = () => (
 <Router history={hashHistory} >
   <Route path='/' component={Main}>
-    <IndexRoute component={Register} />  
+   
   </Route>
 </Router>
 );

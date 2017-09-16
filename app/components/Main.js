@@ -19,7 +19,9 @@ var Main = React.createClass({
               </div>
 
                 <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul className="nav navbar-nav navbar-right">
+                        <ul className="nav navbar-nav navbar-right"> 
+                          <li>><a href="/"><span className="teal glyphicon glyphicon-globe"></span> Dashboard</a></li>
+                          <li><a href="/users/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                           <li><a href="#Main"><span className="glyphicon glyphicon-log-in"></span> Login</a></li>
                           <li><a href="#Register"><span className="glyphicon glyphicon-user"></span> Register</a></li>
                         </ul>
