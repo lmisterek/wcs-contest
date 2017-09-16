@@ -22,9 +22,9 @@ var contests = require('./routes/contests');
 var app = express();
 
 // View engine
-app.set('views', path.join(__dirname, 'views'));
-app.engine('handlebars', exphbs({defaultLayout: 'layout'}));
-app.set('view engine', 'handlebars');
+// app.set('views', path.join(__dirname, 'views'));
+// app.engine('handlebars', exphbs({defaultLayout: 'layout'}));
+// app.set('view engine', 'handlebars');
 
 // Middle ware
 app.use(bodyParser.json());
