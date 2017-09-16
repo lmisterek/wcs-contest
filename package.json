@@ -2,13 +2,15 @@
   "name": "wcs-contest",
   "version": "1.0.0",
   "description": "This is an app to score West Coast Swing Conventions.",
-  "main": "index.js",
+  "main": "public/index.html",
   "directories": {
     "test": "tests"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "dev": "webpack & node server",
+    "start": "node server",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -34,6 +36,21 @@
     "mongodb": "^2.2.30",
     "mongoose": "^4.11.2",
     "passport": "^0.3.2",
-    "passport-local": "^1.0.0"
+
+    "passport-http": "^0.3.0",
+    "passport-local": "^1.0.0",
+    "password-generator": "^2.1.0",
+    "redi": "^0.1.0",
+    "redis": "^2.7.1",
+    "sequelize": "^4.4.2",
+    "squel": "^5.10.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.3.13",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "webpack": "^1.13.1"
+
   }
 }
