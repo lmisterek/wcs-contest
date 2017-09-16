@@ -8,6 +8,11 @@ var Score = require("../models/Score.js");
 var db = require('../models');
 var convention = require('../config/dcsData.js');
 
+router.get("/judge", function(req,res){
+    let judge = "nada";
+    console.log('judge', judge);
+    res.send(judge);
+});
 
 // This route creates prelim and semi-finals judge sheets
 

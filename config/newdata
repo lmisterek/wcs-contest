@@ -2,7 +2,7 @@
 	'firstname': 'aa',
 	'lastname': 'aaaaa',
 	'division': 'novice',
-	'role': 'lead',
+	'role': 'follow',
 	'bib_number': '102'
 }
 {
@@ -16,7 +16,7 @@
 	'firstname': 'cc',
 	'lastname': 'cccc',
 	'division': 'novice',
-	'role': 'lead',
+	'role': 'follow',
 	'bib_number': '104'
 }
 {
