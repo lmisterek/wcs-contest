@@ -8,12 +8,12 @@ var bcrypt = require('bcryptjs');
 var User = require("../models/User.js");
 // Register
 router.get('/register', function(req, res) {
-    res.render('register');
+    // res.render('register');
 });
 
 // Login
 router.get('/login', function(req, res) {
-    res.render('login');
+    // res.render('login');
 });
 
 // If the user enters the correct password, they will be directed to the dashboard
@@ -21,20 +21,22 @@ router.get('/login', function(req, res) {
 router.post('/login',
     passport.authenticate('local', { successRedirect: '/', failureRedirect: '/users/login', failureFlash: true }),
     function(req, res) {
-        res.redirect('/');
+        console.log('req.body', req.body);
+        res.send('post successful');
     }
 );
 
 router.get('/logout', function(req, res) {
     req.logout();
     req.flash('success_msg', 'You are logged out');
-    res.redirect('login');
+    // res.redirect('login');
 });
 
 passport.use(new LocalStrategy(
 
     function(username, password, done) {
-
+        console.log('passport username', username);
+        console.log('passport password', password);
     	// Search the database for the given user
         // db.User.findOne({ where: {username: username, password: password }}).then(function(dbUser) {
         User.find({ "username": username }, function(error, doc) {
@@ -135,7 +137,7 @@ router.post('/register', function(req, res){
 		 // TODO:  Fix this flash message
 		req.flash('success_msg', 'You are registered and can now login');
 
-		res.redirect('/users/login');
+		// res.redirect('/users/login');
 	}
 
 });

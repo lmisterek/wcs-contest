@@ -7,7 +7,7 @@ var Score = require("../models/Score.js");
 
 
 router.get("/judge", function(req,res){
-    let judge = "nada";
+    let judge = res.locals.user;
     console.log('judge', judge);
     res.send(judge);
 });
