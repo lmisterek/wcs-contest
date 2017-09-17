@@ -18,7 +18,7 @@ var Login = React.createClass({
 					<label>Username </label>
 					<input type="text" className="form-control" placeholder="Username" name="username" />
 				</div>
-				<div class = 'form-group'>
+				<div className = 'form-group'>
 					<label>Password </label>
 					<input type="password" className="form-control" placeholder="Password" name="password" />
 				</div>
