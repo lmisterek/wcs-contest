@@ -8,6 +8,9 @@ var flash = require('connect-flash');
 var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local'), Strategy;
+const Sequelize = require('sequelize');
+
+
 
 
 var routes = require('./routes/index');
@@ -19,7 +22,15 @@ var app = express();
 var PORT = process.env.PORT || 8080;
 
 // Requiring our models for syncing
-var db = require("./models");
+// var db = require("./models");
+const sequelize = new Sequelize('sample_db', 'postgres', '<>{}data951', {
+	host: 'localhost',
+	dialect: 'postgres'
+});
+
+// Option 2: Using a connection URI
+// const sequelize = new Sequelize('postgres://user:pass@example.com:5432/dbname');
+
 
 // View engine
 
@@ -85,11 +96,25 @@ app.use('/users', users);
 app.use('/contests', contests);
 
 
+
+// Connecting to the Data-base
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
+
 // Syncing our sequelize models and then starting our Express app
 // ================================================================================
-db.sequelize.sync().then(function() {
-	app.listen(PORT, function() {
-		console.log("App listening on PORT " + PORT);
-	});
-});
+
+
+// db.sequelize.sync( { force: true}).then(function() {
+// 	console.log("made it here");
+// 	app.listen(PORT, function() {
+// 		console.log("App listening on PORT " + PORT);
+// 	});
+// });
 
