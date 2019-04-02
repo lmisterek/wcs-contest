@@ -23,7 +23,7 @@ var PORT = process.env.PORT || 8080;
 
 // Requiring our models for syncing
 // var db = require("./models");
-const sequelize = new Sequelize('sample_db', 'postgres', '<>{}data951', {
+const db = new Sequelize('wcs_database', 'postgres', '<>{}data951', {
 	host: 'localhost',
 	dialect: 'postgres'
 });
@@ -98,7 +98,7 @@ app.use('/contests', contests);
 
 
 // Connecting to the Data-base
-sequelize
+db
   .authenticate()
   .then(() => {
     console.log('Connection has been established successfully.');
