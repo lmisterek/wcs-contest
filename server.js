@@ -28,9 +28,6 @@ const db = new Sequelize('wcs_database', 'postgres', '<>{}data951', {
 	dialect: 'postgres'
 });
 
-// Option 2: Using a connection URI
-// const sequelize = new Sequelize('postgres://user:pass@example.com:5432/dbname');
-
 
 // View engine
 
@@ -102,8 +99,12 @@ db
   .authenticate()
   .then(() => {
     console.log('Connection has been established successfully.');
+    app.listen(PORT, function() {
+		console.log("App listening on PORT " + PORT);
+	});
   })
   .catch(err => {
+
     console.error('Unable to connect to the database:', err);
   });
 
@@ -111,10 +112,8 @@ db
 // ================================================================================
 
 
-// db.sequelize.sync( { force: true}).then(function() {
+// db.Sequelize.sync( { force: true}).then(function() {
 // 	console.log("made it here");
-// 	app.listen(PORT, function() {
-// 		console.log("App listening on PORT " + PORT);
-// 	});
+	
 // });
 
