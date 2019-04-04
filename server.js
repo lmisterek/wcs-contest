@@ -23,10 +23,6 @@ var PORT = process.env.PORT || 8080;
 
 // Requiring our models for syncing
 var db = require("./models");
-const sequelize = new Sequelize('wcs_database', 'postgres', '<>{}data951', {
-	host: 'localhost',
-	dialect: 'postgres'
-});
 
 
 // View engine
@@ -112,10 +108,12 @@ app.use('/contests', contests);
 // ================================================================================
 
 
-db.sequelize.sync( { force: true}).then(function() {
+db.sequelize.sync( ).then(()=> {
 	app.listen(PORT, function() {
 		console.log("App listening on PORT " + PORT);
 	});
 	
-});
+}).catch(err => {
+	console.error('Unable to connect to the database:', err);
+})
 
