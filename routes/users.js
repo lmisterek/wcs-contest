@@ -6,6 +6,7 @@ var bcrypt = require('bcryptjs');
 
 
 
+
 // Requiring our Todo model
 var db = require("../models");
 
@@ -97,22 +98,27 @@ router.post('/register', function(req, res){
 	req.checkBody('password', 'Password is required').notEmpty();
 	req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
 
-	var errors = req.validationErrors();
-	if(errors) {
-		res.render('register', {
-			errors: errors
-		})
-	}
-	else {
 
-		// Add new user to the database with hashed password
-		createUser(last_name, first_name, email, username, password);
 
-		 // TODO:  Fix this flash message
-		req.flash('success_msg', 'You are registered and can now login');
 
-		res.redirect('/users/login');
-	}
+
+
+// 	var errors = req.validationErrors();
+// 	if(errors) {
+// 		res.render('register', {
+// 			errors: errors
+// 		})
+// 	}
+// 	else {
+
+// 		// Add new user to the database with hashed password
+// 		createUser(last_name, first_name, email, username, password);
+
+// 		 // TODO:  Fix this flash message
+// 		req.flash('success_msg', 'You are registered and can now login');
+
+// 		res.redirect('/users/login');
+// 	}
 
 });
 
@@ -123,6 +129,7 @@ module.exports = router;
 // This function takes in user information and adds the user to the database
 // with a hash for the password
 createUser = function (last, first, email, username, password) {
+
 	const saltRounds = 10;	
 	bcrypt.genSalt(saltRounds, function(err, salt) {
 		if (err) throw err;

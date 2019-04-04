@@ -22,8 +22,8 @@ var app = express();
 var PORT = process.env.PORT || 8080;
 
 // Requiring our models for syncing
-// var db = require("./models");
-const db = new Sequelize('wcs_database', 'postgres', '<>{}data951', {
+var db = require("./models");
+const sequelize = new Sequelize('wcs_database', 'postgres', '<>{}data951', {
 	host: 'localhost',
 	dialect: 'postgres'
 });
@@ -95,25 +95,25 @@ app.use('/contests', contests);
 
 
 // Connecting to the Data-base
-db
-  .authenticate()
-  .then(() => {
-    console.log('Connection has been established successfully.');
-    app.listen(PORT, function() {
-		console.log("App listening on PORT " + PORT);
-	});
-  })
-  .catch(err => {
+// sequelize
+//   .authenticate()
+//   .then(() => {
+//     console.log('Connection has been established successfully.');
+//     app.listen(PORT, function() {
+// 		console.log("App listening on PORT " + PORT);
+// 	});
+//   })
+//   .catch(err => {
 
-    console.error('Unable to connect to the database:', err);
-  });
+//     console.error('Unable to connect to the database:', err);
+//   });
 
 // Syncing our sequelize models and then starting our Express app
 // ================================================================================
 
 
-// db.Sequelize.sync( { force: true}).then(function() {
-// 	console.log("made it here");
+db.sequelize.sync( { force: true}).then(function() {
+	console.log("made it here");
 	
-// });
+});
 
