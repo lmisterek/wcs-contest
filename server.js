@@ -12,14 +12,14 @@ const Sequelize = require('sequelize');
 
 
 
-
+// Include routes
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var contests = require('./routes/contests');
 
 // Init App
 var app = express();
-var PORT = process.env.PORT || 8080;
+var PORT = process.env.PORT || 8000;
 
 // Requiring our models for syncing
 var db = require("./models");
@@ -88,8 +88,6 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/contests', contests);
 
-
-
 // Connecting to the Data-base
 // sequelize
 //   .authenticate()
@@ -108,12 +106,12 @@ app.use('/contests', contests);
 // ================================================================================
 
 
-db.sequelize.sync( ).then(()=> {
+db.sequelize.sync().then(()=> {
 	app.listen(PORT, function() {
 		console.log("App listening on PORT " + PORT);
 	});
 	
 }).catch(err => {
 	console.error('Unable to connect to the database:', err);
-})
+});
 

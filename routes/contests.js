@@ -6,56 +6,60 @@ var passport = require('passport');
 var db = require('../models');
 var convention = require('../config/dcsData.js');
 
-
+//ensureAuthenticated
 // This route creates prelim and semi-finals judge sheets
 
-router.get("/judge/:round/:division/:role", ensureAuthenticated, function(req, res) {
+router.get("/judge/:round/:division/:role",  function(req, res) {
 
-    var judge = res.locals.user;
-    var division = req.params.division;
-    var round = req.params.round;
-    var role = req.params.role;
+    res.render("link works.");
 
-    // Capitalize Division and Role
-    let Division = division.charAt(0).toUpperCase() + division.slice(1);
-    let Role = role.charAt(0).toUpperCase() + role.slice(1);
+    // var judge = res.locals.user;
+    // var division = req.params.division;
+    // var round = req.params.round;
+    // var role = req.params.role;
 
+    // console.log("here");
 
-    // Check route paramaters, If the route is bad, then re-direct to dashboard
-    if (badRoute(convention, round, division, role)) {
-        res.redirect('/');
-        return;
-    } else {
+    // // Capitalize Division and Role
+    // let Division = division.charAt(0).toUpperCase() + division.slice(1);
+    // let Role = role.charAt(0).toUpperCase() + role.slice(1);
 
 
-    	// Check to see if the judge has judged this competition
-    	db.Score.findAll({
-    		where: {
-    			judge: judge.id,
-    			division: division,
-    			round: round,
-    		}
-    	}).then((results) => {
+    // // Check route paramaters, If the route is bad, then re-direct to dashboard
+    // if (badRoute(convention, round, division, role)) {
+    //     res.redirect('/');
+    //     return;
+    // } else {
+
+
+    // 	// Check to see if the judge has judged this competition
+    // 	db.Score.findAll({
+    // 		where: {
+    // 			judge: judge.id,
+    // 			division: division,
+    // 			round: round,
+    // 		}
+    // 	}).then((results) => {
    
-    		if(results.length == 0) {
+    // 		if(results.length == 0) {
 
-    			//Get all the participants
-	        	db.Participant.findAll({
-	            where: {
-	                role: role,
-	                division: division
-	            }
-		        }).then((results) => {
-		            res.render('prelim', { division: Division, role: Role, list: results, round: round });
+    // 			//Get all the participants
+	   //      	db.Participant.findAll({
+	   //          where: {
+	   //              role: role,
+	   //              division: division
+	   //          }
+		  //       }).then((results) => {
+		  //           res.render('prelim', { division: Division, role: Role, list: results, round: round });
 
-		        });
-    		}
-    		else {
-    			res.redirect('/');
-    		}
-    	});
+		  //       });
+    // 		}
+    // 		else {
+    // 			res.redirect('/');
+    // 		}
+    // 	});
     	
-    }
+    // }
 });
 
 
@@ -84,8 +88,8 @@ router.post("/:round/:division/:role", function(req, res) {
             console.log('created Scores');
         });
     }
-    // insert data into database
-    // Contest.addScores(scores, round, division, judgeId);
+    insert data into database
+    Contest.addScores(scores, round, division, judgeId);
     res.redirect("/");
 });
 

@@ -9,10 +9,10 @@ var connection = require("../config/connection.js");
 
 function User(last, first, email, username, password) {
     this.last_name = last,
-        this.first_name = first,
-        this.email = email,
-        this.username = username,
-        this.password = password
+    this.first_name = first,
+    this.email = email,
+    this.username = username,
+    this.password = password
 }
 
 
